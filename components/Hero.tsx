@@ -240,53 +240,43 @@ export default function Hero({ isLoaded }: HeroProps) {
     >
       {/* LUXURY ARCHITECTURAL MODULAR GRID BOXES MATRIX */}
       <div className="hero-grid-matrix absolute inset-0 pointer-events-none max-w-[1720px] mx-auto z-0 overflow-hidden will-change-transform">
-        {/* Full 2D Grid Matrix of Elegant Boxes */}
-        <div className="w-full h-full grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-12 grid-rows-4 sm:grid-rows-6 border-l border-t border-[#0E0E0E]/10">
-          {Array.from({ length: 48 }).map((_, i) => (
-            <div
-              key={i}
-              className="relative border-r border-b border-[#0E0E0E]/[0.08] flex flex-col justify-between p-2 sm:p-3 transition-colors duration-500"
-            >
-              {/* Intersection Crosshair (+) at select grid corners */}
-              {(i % 3 === 0 || i % 7 === 0) && (
-                <span className="absolute -top-[7px] -right-[7px] font-mono text-[9px] text-[#0E0E0E]/25 select-none z-10 leading-none">
-                  +
-                </span>
-              )}
+        {/* Full 2D Grid Matrix (GPU-cached texture, 0 CPU layout cost) */}
+        <div
+          className="relative w-full h-full border-l border-t border-[#0E0E0E]/10"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(14, 14, 14, 0.08) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(14, 14, 14, 0.08) 1px, transparent 1px)
+            `,
+            backgroundSize: "clamp(80px, 8.333vw, 143px) clamp(70px, 16.666vh, 120px)",
+          }}
+        >
+          {/* Subtle Key Architectural Crosshair Markers at strategic intersections */}
+          <span className="absolute top-[20%] left-[16.666%] font-mono text-[9px] text-[#0E0E0E]/30 -translate-x-1/2 -translate-y-1/2 select-none">+</span>
+          <span className="absolute top-[20%] right-[16.666%] font-mono text-[9px] text-[#0E0E0E]/30 -translate-x-1/2 -translate-y-1/2 select-none">+</span>
+          <span className="absolute top-[50%] left-[8.333%] font-mono text-[9px] text-accent/50 -translate-x-1/2 -translate-y-1/2 select-none">+</span>
+          <span className="absolute top-[50%] right-[8.333%] font-mono text-[9px] text-[#0E0E0E]/30 -translate-x-1/2 -translate-y-1/2 select-none">+</span>
+          <span className="absolute bottom-[20%] left-[25%] font-mono text-[9px] text-accent/50 -translate-x-1/2 -translate-y-1/2 select-none">+</span>
+          <span className="absolute bottom-[20%] right-[25%] font-mono text-[9px] text-[#0E0E0E]/30 -translate-x-1/2 -translate-y-1/2 select-none">+</span>
 
-              {/* Luxury Micro-coordinates engraved in select cells */}
-              {i === 2 && (
-                <span className="font-mono text-[8px] text-muted/60 tracking-widest uppercase hidden lg:block">
-                  LOC // 106°49&apos;E
-                </span>
-              )}
-              {i === 7 && (
-                <span className="font-mono text-[8px] text-accent/70 tracking-widest uppercase font-semibold hidden sm:block">
-                  ● ARCHIVE 2026
-                </span>
-              )}
-              {i === 14 && (
-                <span className="font-mono text-[8px] text-muted/50 tracking-widest uppercase hidden lg:block">
-                  GRID // 02-B
-                </span>
-              )}
-              {i === 21 && (
-                <span className="font-mono text-[8px] text-muted/50 tracking-widest uppercase hidden lg:block">
-                  SWISS EDITORIAL
-                </span>
-              )}
-              {i === 35 && (
-                <span className="font-mono text-[8px] text-accent/60 tracking-widest uppercase font-semibold hidden sm:block">
-                  + REKAYASA RPL
-                </span>
-              )}
-            </div>
-          ))}
+          {/* Micro-coordinates engraved in background */}
+          <span className="absolute top-4 left-6 font-mono text-[8px] text-muted/60 tracking-widest uppercase hidden lg:block">
+            LOC // 106°49&apos;E
+          </span>
+          <span className="absolute top-4 right-6 font-mono text-[8px] text-accent/70 tracking-widest uppercase font-semibold hidden sm:block">
+            ● ARCHIVE 2026
+          </span>
+          <span className="absolute bottom-4 left-6 font-mono text-[8px] text-muted/50 tracking-widest uppercase hidden lg:block">
+            SWISS EDITORIAL MATRIX
+          </span>
+          <span className="absolute bottom-4 right-6 font-mono text-[8px] text-accent/60 tracking-widest uppercase font-semibold hidden sm:block">
+            + REKAYASA RPL
+          </span>
         </div>
 
         {/* LUXURY FLOATING ARCHITECTURAL FRAMES (Framing MUH RAFLI ICHSAN) */}
-        {/* Frame 1: Prominent Luxury Glassmorphic Double-Border Box */}
-        <div className="hero-box-frame-1 absolute top-[28%] sm:top-[26%] left-[4%] sm:left-[8%] right-[4%] sm:right-[10%] h-[44%] sm:h-[48%] border border-[#0E0E0E]/15 bg-surface/30 backdrop-blur-[1px] shadow-sm pointer-events-none will-change-transform">
+        {/* Frame 1: Prominent Luxury Double-Border Box */}
+        <div className="hero-box-frame-1 absolute top-[28%] sm:top-[26%] left-[4%] sm:left-[8%] right-[4%] sm:right-[10%] h-[44%] sm:h-[48%] border border-[#0E0E0E]/15 bg-surface/50 shadow-sm pointer-events-none will-change-transform">
           {/* Subtle Inner Double Border */}
           <div className="absolute inset-1.5 border border-[#0E0E0E]/10 pointer-events-none" />
 
@@ -319,7 +309,7 @@ export default function Hero({ isLoaded }: HeroProps) {
         </div>
 
         {/* Frame 3: Small luxury coordinate spec box in upper-right */}
-        <div className="hero-box-frame-3 absolute top-[20%] right-[6%] w-40 sm:w-48 h-20 sm:h-24 border border-[#0E0E0E]/15 bg-background/85 backdrop-blur-xs p-2.5 font-mono text-[9px] text-muted space-y-1 hidden md:block will-change-transform shadow-xs">
+        <div className="hero-box-frame-3 absolute top-[20%] right-[6%] w-40 sm:w-48 h-20 sm:h-24 border border-[#0E0E0E]/15 bg-background/95 p-2.5 font-mono text-[9px] text-muted space-y-1 hidden md:block will-change-transform shadow-xs">
           <div className="flex justify-between items-center text-[8px] text-accent font-bold border-b border-[#0E0E0E]/10 pb-1">
             <span>SPEC. RATIO</span>
             <span>16:9 GRID</span>

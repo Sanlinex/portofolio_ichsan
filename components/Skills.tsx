@@ -13,36 +13,27 @@ export default function Skills() {
   const skillsGridRef = useRef<HTMLDivElement>(null);
   const { lenis } = useLenis();
 
-  // Scroll Velocity & SkewX Reaction
+  // High-Performance Scroll Velocity & SkewX Reaction (via gsap.quickTo)
   useEffect(() => {
-    if (!lenis) return;
+    if (!lenis || !marquee1Ref.current || !marquee2Ref.current) return;
+
+    const skew1To = gsap.quickTo(marquee1Ref.current, "skewX", { duration: 0.3, ease: "power2.out" });
+    const skew2To = gsap.quickTo(marquee2Ref.current, "skewX", { duration: 0.3, ease: "power2.out" });
 
     let timeoutId: NodeJS.Timeout;
 
     const handleScroll = (e: { velocity: number }) => {
       const velocity = e.velocity || 0;
-      const targetSkew = Math.max(-10, Math.min(10, velocity * 0.7));
+      const targetSkew = Math.max(-8, Math.min(8, velocity * 0.5));
 
-      if (marquee1Ref.current && marquee2Ref.current) {
-        gsap.to([marquee1Ref.current, marquee2Ref.current], {
-          skewX: targetSkew,
-          duration: 0.25,
-          ease: "power2.out",
-          overwrite: "auto",
-        });
-      }
+      skew1To(targetSkew);
+      skew2To(targetSkew);
 
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        if (marquee1Ref.current && marquee2Ref.current) {
-          gsap.to([marquee1Ref.current, marquee2Ref.current], {
-            skewX: 0,
-            duration: 0.6,
-            ease: "power3.out",
-            overwrite: "auto",
-          });
-        }
-      }, 100);
+        skew1To(0);
+        skew2To(0);
+      }, 120);
     };
 
     lenis.on("scroll", handleScroll);

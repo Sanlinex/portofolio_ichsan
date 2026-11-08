@@ -35,6 +35,7 @@ export default function CustomCursor() {
     const yDotTo = gsap.quickTo(dot, "y", { duration: 0.08, ease: "power2.out" });
 
     let hasPositionedInitial = false;
+    let hasShown = false;
 
     const handleMouseMove = (e: MouseEvent) => {
       if (!hasPositionedInitial) {
@@ -43,7 +44,11 @@ export default function CustomCursor() {
         hasPositionedInitial = true;
       }
 
-      setIsVisible(true);
+      if (!hasShown) {
+        hasShown = true;
+        setIsVisible(true);
+      }
+
       xOuterTo(e.clientX);
       yOuterTo(e.clientY);
       xDotTo(e.clientX);

@@ -13,13 +13,13 @@ export default function Achievements() {
   const [activeAchievement, setActiveAchievement] = useState<AchievementItem | null>(null);
   const [isHovering, setIsHovering] = useState(false);
 
-  // Floating Preview Cursor Follower with Lerp
+  // Floating Preview Cursor Follower with Lerp (only active when hovering rows)
   useEffect(() => {
     const preview = previewRef.current;
-    if (!preview) return;
+    if (!preview || !isHovering) return;
 
-    const xTo = gsap.quickTo(preview, "x", { duration: 0.35, ease: "power3.out" });
-    const yTo = gsap.quickTo(preview, "y", { duration: 0.35, ease: "power3.out" });
+    const xTo = gsap.quickTo(preview, "x", { duration: 0.3, ease: "power3.out" });
+    const yTo = gsap.quickTo(preview, "y", { duration: 0.3, ease: "power3.out" });
 
     const handleMouseMove = (e: MouseEvent) => {
       xTo(e.clientX + 24);
@@ -28,7 +28,7 @@ export default function Achievements() {
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [isHovering]);
 
   // Entrance Clip-Path Reveal & Tactile Parallax
   useGSAP(

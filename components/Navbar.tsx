@@ -14,10 +14,10 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
   const [activeSection, setActiveSection] = useState("01");
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
   const navRef = useRef<HTMLElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
   // Live Local Time (WIB / UTC+7)
   useEffect(() => {
@@ -38,23 +38,34 @@ export default function Navbar() {
     return () => clearInterval(interval);
   }, []);
 
-  // Scroll Progress & Hide on Scroll Down, Show on Scroll Up
+  // Zero-Rerender GPU Scroll Progress & Smooth Header Toggle
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? currentScrollY / docHeight : 0;
-      setScrollProgress(progress);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = docHeight > 0 ? Math.min(1, Math.max(0, currentScrollY / docHeight)) : 0;
 
-      if (currentScrollY < 80) {
-        setIsVisible(true);
-      } else if (currentScrollY > lastScrollY.current + 6) {
-        setIsVisible(false); // scrolling down
-      } else if (currentScrollY < lastScrollY.current - 6) {
-        setIsVisible(true); // scrolling up
+          if (progressBarRef.current) {
+            progressBarRef.current.style.transform = `scaleX(${progress})`;
+          }
+
+          if (currentScrollY < 80) {
+            setIsVisible((prev) => (prev ? prev : true));
+          } else if (currentScrollY > lastScrollY.current + 8) {
+            setIsVisible((prev) => (!prev ? prev : false));
+          } else if (currentScrollY < lastScrollY.current - 8) {
+            setIsVisible((prev) => (prev ? prev : true));
+          }
+
+          lastScrollY.current = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
       }
-
-      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -131,11 +142,12 @@ export default function Navbar() {
 
   return (
     <>
-      {/* 1. Thin Top Scroll Progress Line */}
+      {/* 1. Thin Top Scroll Progress Line (Direct GPU transform) */}
       <div className="fixed top-0 left-0 right-0 h-[2px] z-[9995] pointer-events-none">
         <div
-          className="h-full bg-accent origin-left transition-transform duration-75"
-          style={{ transform: `scaleX(${scrollProgress})` }}
+          ref={progressBarRef}
+          className="h-full bg-accent origin-left will-change-transform"
+          style={{ transform: "scaleX(0)" }}
         />
       </div>
 
