@@ -87,9 +87,13 @@ export default function PosterGallery() {
               POSTER GALLERY // SWISS TYPOGRAPHY &amp; VISUAL DIRECTION
             </span>
           </div>
-          <span className="text-muted hidden sm:inline">
-            KLIK KARTU UNTUK BUKA STUDIO KOLEKSI LENGKAP
-          </span>
+          <Link
+            href="/poster"
+            className="text-accent hover:underline font-semibold flex items-center gap-1.5 transition-colors"
+          >
+            <span>LIHAT SEMUA POSTER ({PROFILE_DATA.posters.length} SERI)</span>
+            <span>↗</span>
+          </Link>
         </div>
 
         <div className="py-10 max-w-3xl">
@@ -286,6 +290,20 @@ export default function PosterGallery() {
               </Link>
             ))}
           </div>
+        </div>
+
+        {/* Bottom See All Posters Callout Banner */}
+        <div className="pt-16 flex flex-wrap justify-between items-center gap-4 border-t border-[#0E0E0E]/15 mt-16">
+          <p className="font-sans text-xs text-muted">
+            Eksplorasi tipografi Swiss, manifesto jurnalisme editorial, dan estetika visual brutalist lengkap.
+          </p>
+          <Link
+            href="/poster"
+            className="py-3 px-6 border border-accent bg-accent/10 hover:bg-accent hover:text-white text-accent font-mono text-xs font-bold tracking-wider uppercase transition-all shadow-sm flex items-center gap-2"
+          >
+            <span>Buka Arsip Lengkap Seluruh Koleksi Poster (See All)</span>
+            <span>↗</span>
+          </Link>
         </div>
       </div>
     </section>

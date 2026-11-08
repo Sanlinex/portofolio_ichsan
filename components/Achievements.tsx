@@ -78,7 +78,13 @@ export default function Achievements() {
             </span>
             <span className="text-foreground font-semibold">HONORS &amp; COMPETITIVE AWARDS</span>
           </div>
-          <span className="text-muted hidden sm:inline">KLIK BARIS UNTUK BUKA SERTIFIKAT RESMI</span>
+          <Link
+            href="/certificate"
+            className="text-accent hover:underline font-semibold flex items-center gap-1.5 transition-colors"
+          >
+            <span>LIHAT SEMUA SERTIFIKAT ({PROFILE_DATA.achievements.length})</span>
+            <span>↗</span>
+          </Link>
         </div>
 
         <div className="py-10">
@@ -148,6 +154,20 @@ export default function Achievements() {
               </div>
             </Link>
           ))}
+        </div>
+
+        {/* Bottom See All Certificates Callout Banner */}
+        <div className="pt-10 flex flex-wrap justify-between items-center gap-4">
+          <p className="font-sans text-xs text-muted">
+            Menampilkan ringkasan rekognisi kejuruan dan podium rekayasa web kompetitif.
+          </p>
+          <Link
+            href="/certificate"
+            className="py-3 px-6 border border-accent bg-accent/10 hover:bg-accent hover:text-white text-accent font-mono text-xs font-bold tracking-wider uppercase transition-all shadow-sm flex items-center gap-2"
+          >
+            <span>Buka Arsip Lengkap Semua Sertifikat ({PROFILE_DATA.achievements.length})</span>
+            <span>↗</span>
+          </Link>
         </div>
       </div>
 

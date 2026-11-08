@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLenis } from "@/components/SmoothScroll";
 import Magnetic from "@/components/Magnetic";
@@ -310,6 +311,36 @@ export default function Navbar() {
                         </motion.div>
                       </li>
                     ))}
+
+                    {/* Dedicated Archive Directory Links */}
+                    <li className="pt-4 border-t border-white/10 space-y-2">
+                      <span className="font-mono text-[10px] text-accent font-bold uppercase tracking-widest block">
+                        [ DEDICATED ARCHIVE DIRECTORIES ]
+                      </span>
+                      <div className="flex flex-wrap gap-2 text-xs font-mono">
+                        <Link
+                          href="/work"
+                          onClick={() => setIsMenuOpen(false)}
+                          className="px-2.5 py-1 bg-white/5 hover:bg-accent hover:text-white border border-white/10 transition-colors"
+                        >
+                          ALL PROJECTS (04) ↗
+                        </Link>
+                        <Link
+                          href="/certificate"
+                          onClick={() => setIsMenuOpen(false)}
+                          className="px-2.5 py-1 bg-white/5 hover:bg-accent hover:text-white border border-white/10 transition-colors"
+                        >
+                          ALL CERTIFICATES (03) ↗
+                        </Link>
+                        <Link
+                          href="/poster"
+                          onClick={() => setIsMenuOpen(false)}
+                          className="px-2.5 py-1 bg-white/5 hover:bg-accent hover:text-white border border-white/10 transition-colors"
+                        >
+                          ALL POSTERS (10) ↗
+                        </Link>
+                      </div>
+                    </li>
                   </ul>
                 </div>
               </nav>

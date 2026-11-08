@@ -161,9 +161,18 @@ export default function SelectedWorks() {
               <p className="font-sans text-sm text-muted leading-relaxed">
                 Empat proyek terpilih yang merepresentasikan keahlian fullstack: modul redaksi CMS, sistem kasir ritel offline-first, ekosistem digital UMKM, dan platform kompetisi cepat.
               </p>
-              <div className="flex items-center gap-3 font-mono text-xs text-accent font-semibold">
-                <span>SCROLL HORIZONTALLY</span>
-                <span>→</span>
+              <div className="flex flex-col gap-3 font-mono text-xs">
+                <div className="flex items-center gap-3 text-accent font-semibold">
+                  <span>SCROLL HORIZONTALLY</span>
+                  <span>→</span>
+                </div>
+                <Link
+                  href="/work"
+                  className="inline-flex items-center gap-1.5 text-foreground hover:text-accent font-semibold border-b border-[#0E0E0E]/30 pb-0.5 w-fit transition-colors"
+                >
+                  <span>SEE ALL PROJECTS (04)</span>
+                  <span>↗</span>
+                </Link>
               </div>
             </div>
           </div>
@@ -241,27 +250,31 @@ export default function SelectedWorks() {
             </Link>
           ))}
 
-          {/* Ending Slide: Guarantees user reaches all cards and clearly sees the finish without cutoff */}
-          <div className="w-[320px] lg:w-[380px] h-[75vh] min-h-[420px] max-h-[580px] border border-[#0E0E0E]/15 bg-surface/50 p-6 sm:p-8 flex flex-col justify-between flex-shrink-0 shadow-sm">
+          {/* Ending Slide: Explore Complete Archive Page (/work) */}
+          <Link
+            href="/work"
+            data-cursor="Archive"
+            className="w-[320px] lg:w-[380px] h-[75vh] min-h-[420px] max-h-[580px] border border-[#0E0E0E]/15 bg-background p-6 sm:p-8 flex flex-col justify-between flex-shrink-0 shadow-sm hover:border-accent hover:shadow-md transition-all group"
+          >
             <div className="space-y-3">
               <span className="font-mono text-xs uppercase tracking-wider text-accent font-bold">
-                [ 04 // 04 COMPLETE ]
+                [ COMPLETE DIRECTORY ]
               </span>
-              <h3 className="font-serif italic text-2xl sm:text-3xl lg:text-4xl text-foreground leading-tight">
-                All Production Cases Viewed.
+              <h3 className="font-serif italic text-3xl sm:text-4xl text-foreground group-hover:text-accent transition-colors leading-tight">
+                Explore Full Works Archive.
               </h3>
             </div>
 
             <div className="space-y-4">
               <p className="font-sans text-xs text-muted leading-relaxed">
-                Seluruh proyek telah dirilis dalam lingkungan produksi dengan standar kode industri dan performa tinggi.
+                Buka arsip lengkap seluruh proyek web, dokumentasi arsitektur, dan ringkasan metrik di halaman khusus.
               </p>
-              <div className="pt-4 border-t border-[#0E0E0E]/10 font-mono text-xs text-accent font-semibold flex items-center gap-2">
-                <span>SCROLL DOWN TO POSTERS</span>
-                <span>↓</span>
+              <div className="pt-4 border-t border-[#0E0E0E]/10 font-mono text-xs text-accent font-semibold flex items-center justify-between">
+                <span>SEE ALL PROJECTS (04)</span>
+                <span className="text-base group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
 
@@ -333,6 +346,16 @@ export default function SelectedWorks() {
               </div>
             </Link>
           ))}
+
+          {/* Mobile All Works CTA Button */}
+          <div className="pt-4">
+            <Link
+              href="/work"
+              className="w-full text-center py-4 px-6 bg-accent hover:bg-accent/90 text-white font-mono text-xs font-bold tracking-wider uppercase transition-colors shadow-md block"
+            >
+              Lihat Semua Proyek &amp; Arsip Lengkap ({PROFILE_DATA.projects.length}) ↗
+            </Link>
+          </div>
         </div>
       </div>
     </section>
