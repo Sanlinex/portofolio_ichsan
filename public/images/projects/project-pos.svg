@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <!-- App Window Background -->
+  <rect width="1200" height="800" fill="#09090B"/>
+
+  <!-- Window Header -->
+  <rect width="1200" height="48" fill="#18181B" border-bottom="1px solid #27272A"/>
+  <circle cx="28" cy="24" r="6" fill="#EF4444"/>
+  <circle cx="48" cy="24" r="6" fill="#F59E0B"/>
+  <circle cx="68" cy="24" r="6" fill="#10B981"/>
+
+  <rect x="240" y="10" width="720" height="28" rx="6" fill="#09090B" stroke="#27272A"/>
+  <text x="600" y="28" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A1A1AA" text-anchor="middle">pos.pakepos.com/terminal/checkout [OFFLINE-FIRST ACTIVE]</text>
+
+  <!-- POS Top Bar -->
+  <rect y="48" width="1200" height="56" fill="#121214" stroke-bottom="1px solid #27272A"/>
+  <text x="32" y="82" font-family="'Inter Tight', sans-serif" font-weight="900" font-size="18" fill="#FF4D1C">PAKE-POS // CASHIER TERMINAL 01</text>
+  <rect x="1020" y="60" width="145" height="32" rx="4" fill="#064E3B"/>
+  <text x="1092" y="80" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#34D399" text-anchor="middle">🟢 ONLINE / SYNCED</text>
+
+  <!-- Left: Catalog & Product Grid (760px) -->
+  <g transform="translate(32, 124)">
+    <!-- Search Bar -->
+    <rect width="730" height="46" rx="6" fill="#18181B" stroke="#27272A"/>
+    <text x="24" y="28" font-family="'Inter Tight', sans-serif" font-size="13" fill="#71717A">🔍 Scan barcode produk atau ketik nama barang...</text>
+    <rect x="610" y="8" width="105" height="30" rx="4" fill="#27272A"/>
+    <text x="662" y="28" font-family="'JetBrains Mono', monospace" font-size="11" fill="#FFFFFF" text-anchor="middle">F2: SCAN</text>
+
+    <!-- Product Grid (6 cards) -->
+    <!-- Card 1 -->
+    <g transform="translate(0, 65)">
+      <rect width="230" height="175" rx="8" fill="#18181B" stroke="#27272A"/>
+      <rect x="12" y="12" width="206" height="85" rx="4" fill="#27272A"/>
+      <text x="115" y="58" font-family="'JetBrains Mono', monospace" font-size="20" fill="#71717A" text-anchor="middle">☕ BEV-01</text>
+      <text x="16" y="122" font-family="'Inter Tight', sans-serif" font-weight="700" font-size="14" fill="#FFFFFF">Espresso Blend 250g</text>
+      <text x="16" y="142" font-family="'JetBrains Mono', monospace" font-size="11" fill="#71717A">SKU: #8992014</text>
+      <text x="16" y="165" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="14" fill="#FF4D1C">Rp 48.000</text>
+      <rect x="180" y="146" width="36" height="24" rx="4" fill="#FF4D1C"/>
+      <text x="198" y="162" font-family="'Inter Tight', sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle">+</text>
+    </g>
+
+    <!-- Card 2 -->
+    <g transform="translate(250, 65)">
+      <rect width="230" height="175" rx="8" fill="#18181B" stroke="#FF4D1C"/>
+      <rect x="12" y="12" width="206" height="85" rx="4" fill="#27272A"/>
+      <text x="115" y="58" font-family="'JetBrains Mono', monospace" font-size="20" fill="#71717A" text-anchor="middle">🍵 BEV-02</text>
+      <text x="16" y="122" font-family="'Inter Tight', sans-serif" font-weight="700" font-size="14" fill="#FFFFFF">Matcha Latte Premium</text>
+      <text x="16" y="142" font-family="'JetBrains Mono', monospace" font-size="11" fill="#71717A">SKU: #8992015</text>
+      <text x="16" y="165" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="14" fill="#FF4D1C">Rp 35.000</text>
+      <rect x="180" y="146" width="36" height="24" rx="4" fill="#FF4D1C"/>
+      <text x="198" y="162" font-family="'Inter Tight', sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle">+</text>
+    </g>
+
+    <!-- Card 3 -->
+    <g transform="translate(500, 65)">
+      <rect width="230" height="175" rx="8" fill="#18181B" stroke="#27272A"/>
+      <rect x="12" y="12" width="206" height="85" rx="4" fill="#27272A"/>
+      <text x="115" y="58" font-family="'JetBrains Mono', monospace" font-size="20" fill="#71717A" text-anchor="middle">🥐 BKD-01</text>
+      <text x="16" y="122" font-family="'Inter Tight', sans-serif" font-weight="700" font-size="14" fill="#FFFFFF">Butter Croissant Artisanal</text>
+      <text x="16" y="142" font-family="'JetBrains Mono', monospace" font-size="11" fill="#71717A">SKU: #8992016</text>
+      <text x="16" y="165" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="14" fill="#FF4D1C">Rp 24.000</text>
+      <rect x="180" y="146" width="36" height="24" rx="4" fill="#FF4D1C"/>
+      <text x="198" y="162" font-family="'Inter Tight', sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle">+</text>
+    </g>
+
+    <!-- Card 4, 5, 6 Row 2 -->
+    <g transform="translate(0, 260)">
+      <rect width="230" height="175" rx="8" fill="#18181B" stroke="#27272A"/>
+      <rect x="12" y="12" width="206" height="85" rx="4" fill="#27272A"/>
+      <text x="115" y="58" font-family="'JetBrains Mono', monospace" font-size="20" fill="#71717A" text-anchor="middle">🥪 BKD-02</text>
+      <text x="16" y="122" font-family="'Inter Tight', sans-serif" font-weight="700" font-size="14" fill="#FFFFFF">Smoked Beef Panini</text>
+      <text x="16" y="142" font-family="'JetBrains Mono', monospace" font-size="11" fill="#71717A">SKU: #8992017</text>
+      <text x="16" y="165" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="14" fill="#FF4D1C">Rp 42.000</text>
+      <rect x="180" y="146" width="36" height="24" rx="4" fill="#FF4D1C"/>
+      <text x="198" y="162" font-family="'Inter Tight', sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle">+</text>
+    </g>
+
+    <g transform="translate(250, 260)">
+      <rect width="230" height="175" rx="8" fill="#18181B" stroke="#27272A"/>
+      <rect x="12" y="12" width="206" height="85" rx="4" fill="#27272A"/>
+      <text x="115" y="58" font-family="'JetBrains Mono', monospace" font-size="20" fill="#71717A" text-anchor="middle">🥤 BEV-03</text>
+      <text x="16" y="122" font-family="'Inter Tight', sans-serif" font-weight="700" font-size="14" fill="#FFFFFF">Cold Brew Nitro 330ml</text>
+      <text x="16" y="142" font-family="'JetBrains Mono', monospace" font-size="11" fill="#71717A">SKU: #8992018</text>
+      <text x="16" y="165" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="14" fill="#FF4D1C">Rp 38.000</text>
+      <rect x="180" y="146" width="36" height="24" rx="4" fill="#FF4D1C"/>
+      <text x="198" y="162" font-family="'Inter Tight', sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle">+</text>
+    </g>
+
+    <g transform="translate(500, 260)">
+      <rect width="230" height="175" rx="8" fill="#18181B" stroke="#27272A"/>
+      <rect x="12" y="12" width="206" height="85" rx="4" fill="#27272A"/>
+      <text x="115" y="58" font-family="'JetBrains Mono', monospace" font-size="20" fill="#71717A" text-anchor="middle">🍪 BKD-03</text>
+      <text x="16" y="122" font-family="'Inter Tight', sans-serif" font-weight="700" font-size="14" fill="#FFFFFF">Dark Chocolate Cookie</text>
+      <text x="16" y="142" font-family="'JetBrains Mono', monospace" font-size="11" fill="#71717A">SKU: #8992019</text>
+      <text x="16" y="165" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="14" fill="#FF4D1C">Rp 18.000</text>
+      <rect x="180" y="146" width="36" height="24" rx="4" fill="#FF4D1C"/>
+      <text x="198" y="162" font-family="'Inter Tight', sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle">+</text>
+    </g>
+  </g>
+
+  <!-- Right: Order Summary & Checkout Bill (380px) -->
+  <g transform="translate(790, 124)">
+    <rect width="375" height="640" rx="8" fill="#121214" stroke="#27272A"/>
+
+    <!-- Order Header -->
+    <text x="24" y="38" font-family="'Inter Tight', sans-serif" font-weight="800" font-size="18" fill="#FFFFFF">Order #TRX-9481</text>
+    <text x="24" y="58" font-family="'JetBrains Mono', monospace" font-size="11" fill="#71717A">Kasir: Rafli • Customer: Walk-In</text>
+
+    <!-- Cart Items -->
+    <line x1="20" y1="75" x2="355" y2="75" stroke="#27272A"/>
+
+    <text x="24" y="105" font-family="'Inter Tight', sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Matcha Latte Premium</text>
+    <text x="24" y="122" font-family="'JetBrains Mono', monospace" font-size="11" fill="#71717A">2x @ Rp 35.000</text>
+    <text x="350" y="112" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="end">Rp 70.000</text>
+
+    <text x="24" y="155" font-family="'Inter Tight', sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Butter Croissant Artisanal</text>
+    <text x="24" y="172" font-family="'JetBrains Mono', monospace" font-size="11" fill="#71717A">1x @ Rp 24.000</text>
+    <text x="350" y="162" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="end">Rp 24.000</text>
+
+    <line x1="20" y1="420" x2="355" y2="420" stroke="#27272A"/>
+
+    <!-- Total Computation -->
+    <text x="24" y="448" font-family="'Inter Tight', sans-serif" font-size="13" fill="#A1A1AA">Subtotal (3 items)</text>
+    <text x="350" y="448" font-family="'JetBrains Mono', monospace" font-size="13" fill="#FFFFFF" text-anchor="end">Rp 94.000</text>
+
+    <text x="24" y="475" font-family="'Inter Tight', sans-serif" font-size="13" fill="#A1A1AA">PPN 11%</text>
+    <text x="350" y="475" font-family="'JetBrains Mono', monospace" font-size="13" fill="#FFFFFF" text-anchor="end">Rp 10.340</text>
+
+    <line x1="20" y1="495" x2="355" y2="495" stroke="#27272A"/>
+
+    <text x="24" y="530" font-family="'Inter Tight', sans-serif" font-weight="800" font-size="16" fill="#FFFFFF">TOTAL BAYAR</text>
+    <text x="350" y="530" font-family="'JetBrains Mono', monospace" font-weight="900" font-size="22" fill="#FF4D1C" text-anchor="end">Rp 104.340</text>
+
+    <!-- Pay Buttons -->
+    <rect x="20" y="560" width="160" height="48" rx="6" fill="#27272A"/>
+    <text x="100" y="590" font-family="'Inter Tight', sans-serif" font-weight="700" font-size="14" fill="#FFFFFF" text-anchor="middle">💵 TUNAI</text>
+
+    <rect x="195" y="560" width="160" height="48" rx="6" fill="#FF4D1C"/>
+    <text x="275" y="590" font-family="'Inter Tight', sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" text-anchor="middle">QRIS / EDC ⚡</text>
+  </g>
+</svg>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 850" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bronzeGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E07A5F"/>
+      <stop offset="50%" stop-color="#C2593F"/>
+      <stop offset="100%" stop-color="#8C3A27"/>
+    </linearGradient>
+    <pattern id="guilloche3" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 0,20 Q 10,0 20,20 T 40,20" fill="none" stroke="rgba(14,14,14,0.04)" stroke-width="1"/>
+      <path d="M 20,0 Q 40,10 20,20 T 20,40" fill="none" stroke="rgba(14,14,14,0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="850" fill="#F8F6F0"/>
+  <rect width="1200" height="850" fill="url(#guilloche3)"/>
+
+  <rect x="25" y="25" width="1150" height="800" fill="none" stroke="#0E0E0E" stroke-width="3"/>
+  <rect x="35" y="35" width="1130" height="780" fill="none" stroke="#FF4D1C" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="45" y="45" width="1110" height="760" fill="none" stroke="#0E0E0E" stroke-width="1"/>
+
+  <!-- Corner Ornaments -->
+  <g stroke="#0E0E0E" stroke-width="2" fill="none">
+    <path d="M 45,75 L 75,75 L 75,45"/>
+    <path d="M 1155,75 L 1125,75 L 1125,45"/>
+    <path d="M 45,775 L 75,775 L 75,805"/>
+    <path d="M 1155,775 L 1125,775 L 1125,805"/>
+  </g>
+
+  <!-- Header Header -->
+  <circle cx="600" cy="115" r="32" fill="#0E0E0E"/>
+  <polygon points="600,95 607,110 623,110 610,120 615,135 600,125 585,135 590,120 577,110 593,110" fill="#FF4D1C"/>
+
+  <!-- Masthead -->
+  <text x="600" y="180" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="600" letter-spacing="4" fill="#0E0E0E" text-anchor="middle">OLIMPIADE DIGITAL UMKM NASIONAL</text>
+  <text x="600" y="202" font-family="'JetBrains Mono', monospace" font-size="11" letter-spacing="3" fill="#666666" text-anchor="middle">KOMPETISI INOVASI &amp; TRANSFORMASI DIGITAL</text>
+
+  <line x1="450" y1="220" x2="750" y2="220" stroke="#0E0E0E" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="600" y="275" font-family="'Instrument Serif', Georgia, serif" font-style="italic" font-size="52" fill="#0E0E0E" text-anchor="middle">Piagam Penghargaan</text>
+  <text x="600" y="305" font-family="'JetBrains Mono', monospace" font-size="11" letter-spacing="3" fill="#FF4D1C" text-anchor="middle">NO. SERTIFIKAT: OD-UMKM / NAT-2023 / 034-DEV</text>
+
+  <!-- Awarded To -->
+  <text x="600" y="360" font-family="'Inter Tight', sans-serif" font-size="14" fill="#666666" text-anchor="middle">DIBERIKAN KEPADA</text>
+  <text x="600" y="420" font-family="'Instrument Serif', Georgia, serif" font-size="48" font-weight="bold" fill="#0E0E0E" text-anchor="middle">MUH. RAFLI ICHSAN</text>
+  <line x1="380" y1="440" x2="820" y2="440" stroke="#0E0E0E" stroke-width="1"/>
+
+  <!-- Achievement Details -->
+  <text x="600" y="480" font-family="'Inter Tight', sans-serif" font-size="15" fill="#444444" text-anchor="middle">Atas Kontribusi dan Prestasi Gemilang Sebagai</text>
+  <text x="600" y="525" font-family="'Inter Tight', sans-serif" font-size="34" font-weight="800" fill="#FF4D1C" text-anchor="middle">JUARA 3 — OLIMPIADE DIGITAL UMKM</text>
+  <text x="600" y="560" font-family="'Inter Tight', sans-serif" font-size="16" fill="#0E0E0E" text-anchor="middle">Kategori Inovasi Rekayasa Perangkat Lunak Kasir &amp; Pembukuan</text>
+  <text x="600" y="585" font-family="'Inter Tight', sans-serif" font-size="13" fill="#666666" text-anchor="middle">Solusi Akselerasi Ekosistem Usaha Mikro Kecil &amp; Menengah</text>
+
+  <!-- Seal / Badge -->
+  <g transform="translate(180, 640)">
+    <circle cx="50" cy="50" r="46" fill="url(#bronzeGrad2)"/>
+    <circle cx="50" cy="50" r="41" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="4 2"/>
+    <text x="50" y="44" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="900" fill="#FFFFFF" text-anchor="middle">3rd</text>
+    <text x="50" y="60" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" letter-spacing="1" fill="#FFFFFF" text-anchor="middle">WINNER</text>
+    <text x="50" y="73" font-family="'JetBrains Mono', monospace" font-size="8" fill="#FFFFFF" text-anchor="middle">UMKM DIGITAL</text>
+  </g>
+
+  <!-- Signatures -->
+  <g transform="translate(780, 640)">
+    <line x1="0" y1="70" x2="240" y2="70" stroke="#0E0E0E" stroke-width="1.5"/>
+    <path d="M 30,50 Q 70,20 100,55 T 160,30 T 210,55" fill="none" stroke="#0E0E0E" stroke-width="2"/>
+    <text x="120" y="90" font-family="'Inter Tight', sans-serif" font-size="12" font-weight="700" fill="#0E0E0E" text-anchor="middle">DEWAN JURI OLIMPIADE UMKM</text>
+    <text x="120" y="108" font-family="'JetBrains Mono', monospace" font-size="10" fill="#666666" text-anchor="middle">KEMENTERIAN KOPERASI &amp; UKM</text>
+  </g>
+
+  <!-- Footer Marginalia -->
+  <text x="60" y="795" font-family="'JetBrains Mono', monospace" font-size="10" fill="#888888">NATIONAL DIGITAL INNOVATION // 2023</text>
+  <text x="1140" y="795" font-family="'JetBrains Mono', monospace" font-size="10" fill="#888888" text-anchor="end">MUH. RAFLI ICHSAN PORTFOLIO</text>
+</svg>

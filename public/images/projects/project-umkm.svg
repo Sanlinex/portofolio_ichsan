@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <!-- App Window Background -->
+  <rect width="1200" height="800" fill="#0C0D0E"/>
+
+  <!-- Top Bar -->
+  <rect width="1200" height="48" fill="#151719" border-bottom="1px solid #23272B"/>
+  <circle cx="28" cy="24" r="6" fill="#EF4444"/>
+  <circle cx="48" cy="24" r="6" fill="#F59E0B"/>
+  <circle cx="68" cy="24" r="6" fill="#10B981"/>
+
+  <rect x="240" y="10" width="720" height="28" rx="6" fill="#0C0D0E" stroke="#23272B"/>
+  <text x="600" y="28" font-family="'JetBrains Mono', monospace" font-size="11" fill="#8892B0" text-anchor="middle">umkm-digital.id/dashboard/ledger-bookkeeping</text>
+
+  <!-- Navbar -->
+  <rect y="48" width="1200" height="60" fill="#101214" stroke-bottom="1px solid #23272B"/>
+  <text x="32" y="85" font-family="'Inter Tight', sans-serif" font-weight="900" font-size="20" fill="#FFFFFF">UMKM<tspan fill="#FF4D1C">.ENGINE</tspan></text>
+  <text x="175" y="84" font-family="'JetBrains Mono', monospace" font-size="11" fill="#64748B">JUARA 3 OLIMPIADE DIGITAL NASIONAL</text>
+
+  <!-- Metric Badges -->
+  <g transform="translate(32, 130)">
+    <rect x="0" y="0" width="265" height="100" rx="8" fill="#151719" stroke="#23272B"/>
+    <text x="20" y="34" font-family="'Inter Tight', sans-serif" font-size="12" fill="#94A3B8">TOTAL OMZET BULAN INI</text>
+    <text x="20" y="74" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="800" fill="#FFFFFF">Rp 128.450.000</text>
+
+    <rect x="290" y="0" width="265" height="100" rx="8" fill="#151719" stroke="#23272B"/>
+    <text x="310" y="34" font-family="'Inter Tight', sans-serif" font-size="12" fill="#94A3B8">KASBON TERKUMPUL</text>
+    <text x="310" y="74" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="800" fill="#10B981">Rp 14.280.000</text>
+    <text x="490" y="72" font-family="'Inter Tight', sans-serif" font-size="11" fill="#10B981">92% Lunas</text>
+
+    <rect x="580" y="0" width="265" height="100" rx="8" fill="#151719" stroke="#23272B"/>
+    <text x="600" y="34" font-family="'Inter Tight', sans-serif" font-size="12" fill="#94A3B8">PIUTANG JATUH TEMPO</text>
+    <text x="600" y="74" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="800" fill="#FF4D1C">Rp 1.150.000</text>
+    <text x="780" y="72" font-family="'Inter Tight', sans-serif" font-size="11" fill="#EF4444">3 Mitra</text>
+
+    <rect x="870" y="0" width="265" height="100" rx="8" fill="#151719" stroke="#23272B"/>
+    <text x="890" y="34" font-family="'Inter Tight', sans-serif" font-size="12" fill="#94A3B8">WA REMINDER TERKIRIM</text>
+    <text x="890" y="74" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="800" fill="#FFFFFF">384 Pesan</text>
+    <text x="1070" y="72" font-family="'Inter Tight', sans-serif" font-size="11" fill="#10B981">100% OK</text>
+  </g>
+
+  <!-- Ledger Table -->
+  <g transform="translate(32, 255)">
+    <rect width="1136" height="490" rx="8" fill="#151719" stroke="#23272B"/>
+
+    <rect width="1136" height="45" fill="#1D2024" rx="8 8 0 0"/>
+    <text x="24" y="28" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#94A3B8">NAMA MITRA / WARUNG</text>
+    <text x="320" y="28" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#94A3B8">JUMLAH KASBON</text>
+    <text x="500" y="28" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#94A3B8">TANGGAL PINJAM</text>
+    <text x="680" y="28" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#94A3B8">JATUH TEMPO</text>
+    <text x="860" y="28" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#94A3B8">STATUS</text>
+    <text x="1020" y="28" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#94A3B8">PENGINGAT WA</text>
+
+    <!-- Row 1 -->
+    <line x1="0" y1="105" x2="1136" y2="105" stroke="#23272B"/>
+    <text x="24" y="75" font-family="'Inter Tight', sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Warung Kelontong Berkah Ibu Siti</text>
+    <text x="24" y="93" font-family="'JetBrains Mono', monospace" font-size="11" fill="#64748B">Kontak: 0812-9844-XXXX • Pasar Anyar</text>
+    <text x="320" y="80" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#FFFFFF">Rp 450.000</text>
+    <text x="500" y="80" font-family="'JetBrains Mono', monospace" font-size="12" fill="#94A3B8">02 Nov 2023</text>
+    <text x="680" y="80" font-family="'JetBrains Mono', monospace" font-size="12" fill="#94A3B8">09 Nov 2023</text>
+    <rect x="855" y="65" width="85" height="24" rx="4" fill="#064E3B"/>
+    <text x="897" y="81" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#34D399" text-anchor="middle">LUNAS</text>
+    <rect x="1015" y="65" width="95" height="26" rx="4" fill="#1E293B"/>
+    <text x="1062" y="82" font-family="'Inter Tight', sans-serif" font-size="11" fill="#94A3B8" text-anchor="middle">Kirim Bukti ✓</text>
+
+    <!-- Row 2 -->
+    <line x1="0" y1="165" x2="1136" y2="165" stroke="#23272B"/>
+    <text x="24" y="135" font-family="'Inter Tight', sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Toko Sembako Maju Jaya</text>
+    <text x="24" y="153" font-family="'JetBrains Mono', monospace" font-size="11" fill="#64748B">Kontak: 0857-1122-XXXX • Cikupa</text>
+    <text x="320" y="140" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#FF4D1C">Rp 700.000</text>
+    <text x="500" y="140" font-family="'JetBrains Mono', monospace" font-size="12" fill="#94A3B8">01 Nov 2023</text>
+    <text x="680" y="140" font-family="'JetBrains Mono', monospace" font-size="12" fill="#EF4444">08 Nov 2023</text>
+    <rect x="855" y="125" width="110" height="24" rx="4" fill="#450A0A"/>
+    <text x="910" y="141" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#F87171" text-anchor="middle">JATUH TEMPO</text>
+    <rect x="1015" y="125" width="95" height="26" rx="4" fill="#FF4D1C"/>
+    <text x="1062" y="142" font-family="'Inter Tight', sans-serif" font-weight="700" font-size="11" fill="#FFFFFF" text-anchor="middle">Kirim WA ⚡</text>
+
+    <!-- Row 3 -->
+    <line x1="0" y1="225" x2="1136" y2="225" stroke="#23272B"/>
+    <text x="24" y="195" font-family="'Inter Tight', sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Kios Bumbu Dapur Bu Rohimah</text>
+    <text x="24" y="213" font-family="'JetBrains Mono', monospace" font-size="11" fill="#64748B">Kontak: 0878-3344-XXXX • Tigaraksa</text>
+    <text x="320" y="200" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="#FFFFFF">Rp 250.000</text>
+    <text x="500" y="200" font-family="'JetBrains Mono', monospace" font-size="12" fill="#94A3B8">04 Nov 2023</text>
+    <text x="680" y="200" font-family="'JetBrains Mono', monospace" font-size="12" fill="#94A3B8">11 Nov 2023</text>
+    <rect x="855" y="185" width="85" height="24" rx="4" fill="#78350F"/>
+    <text x="897" y="201" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#FBBF24" text-anchor="middle">AKTIF</text>
+    <rect x="1015" y="185" width="95" height="26" rx="4" fill="#1E293B"/>
+    <text x="1062" y="202" font-family="'Inter Tight', sans-serif" font-size="11" fill="#94A3B8" text-anchor="middle">Auto-Remind</text>
+  </g>
+</svg>

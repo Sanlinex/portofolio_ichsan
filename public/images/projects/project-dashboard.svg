@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgDash" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181B"/>
+      <stop offset="100%" stop-color="#0E0E0E"/>
+    </linearGradient>
+    <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF4D1C" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FF4D1C" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- App Window Background -->
+  <rect width="1200" height="800" fill="#0E0E0E"/>
+
+  <!-- Browser Window Top Bar -->
+  <rect width="1200" height="48" fill="#18181A" border-bottom="1px solid #27272A"/>
+  <circle cx="28" cy="24" r="6" fill="#EF4444"/>
+  <circle cx="48" cy="24" r="6" fill="#F59E0B"/>
+  <circle cx="68" cy="24" r="6" fill="#10B981"/>
+
+  <!-- URL Address Bar -->
+  <rect x="240" y="10" width="720" height="28" rx="6" fill="#09090B" stroke="#27272A"/>
+  <text x="600" y="28" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A1A1AA" text-anchor="middle">cms.transisimedia.id/admin/editorial/articles</text>
+
+  <!-- Sidebar Nav -->
+  <rect y="48" width="220" height="752" fill="#121214" stroke-right="1px solid #27272A"/>
+  <text x="24" y="90" font-family="'Inter Tight', sans-serif" font-weight="800" font-size="16" fill="#FFFFFF">TRANSISI // CMS</text>
+
+  <!-- Nav Items -->
+  <rect x="16" y="120" width="188" height="36" rx="6" fill="#FF4D1C"/>
+  <text x="48" y="143" font-family="'Inter Tight', sans-serif" font-weight="600" font-size="13" fill="#FFFFFF">📰 Articles &amp; News</text>
+
+  <text x="48" y="185" font-family="'Inter Tight', sans-serif" font-size="13" fill="#A1A1AA">📊 Analytics Live</text>
+  <text x="48" y="225" font-family="'Inter Tight', sans-serif" font-size="13" fill="#A1A1AA">📁 Media Assets</text>
+  <text x="48" y="265" font-family="'Inter Tight', sans-serif" font-size="13" fill="#A1A1AA">👥 Redaction Team</text>
+  <text x="48" y="305" font-family="'Inter Tight', sans-serif" font-size="13" fill="#A1A1AA">⚙️ Settings</text>
+
+  <!-- Main Content Area -->
+  <g transform="translate(245, 70)">
+    <!-- Header -->
+    <text x="0" y="25" font-family="'Inter Tight', sans-serif" font-weight="700" font-size="24" fill="#FFFFFF">Editorial Article Manager</text>
+    <text x="0" y="48" font-family="'Inter Tight', sans-serif" font-size="13" fill="#71717A">Live publishing queue &amp; content distribution</text>
+
+    <rect x="760" y="5" width="160" height="38" rx="6" fill="#FF4D1C"/>
+    <text x="840" y="29" font-family="'Inter Tight', sans-serif" font-weight="700" font-size="13" fill="#FFFFFF" text-anchor="middle">+ Tulis Berita Baru</text>
+
+    <!-- Stats Cards -->
+    <g transform="translate(0, 70)">
+      <rect x="0" y="0" width="220" height="90" rx="8" fill="#18181B" stroke="#27272A"/>
+      <text x="20" y="32" font-family="'Inter Tight', sans-serif" font-size="12" fill="#A1A1AA">PUBLISHED TODAY</text>
+      <text x="20" y="68" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700" fill="#FFFFFF">142</text>
+      <text x="140" y="65" font-family="'Inter Tight', sans-serif" font-size="11" fill="#10B981">+18.4%</text>
+
+      <rect x="235" y="0" width="220" height="90" rx="8" fill="#18181B" stroke="#27272A"/>
+      <text x="255" y="32" font-family="'Inter Tight', sans-serif" font-size="12" fill="#A1A1AA">DRAFT IN REVIEW</text>
+      <text x="255" y="68" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700" fill="#FFFFFF">28</text>
+      <text x="380" y="65" font-family="'Inter Tight', sans-serif" font-size="11" fill="#F59E0B">Queue 4</text>
+
+      <rect x="470" y="0" width="220" height="90" rx="8" fill="#18181B" stroke="#27272A"/>
+      <text x="490" y="32" font-family="'Inter Tight', sans-serif" font-size="12" fill="#A1A1AA">AVG API LATENCY</text>
+      <text x="490" y="68" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700" fill="#FF4D1C">&lt;140ms</text>
+      <text x="615" y="65" font-family="'Inter Tight', sans-serif" font-size="11" fill="#10B981">Optimal</text>
+
+      <rect x="705" y="0" width="215" height="90" rx="8" fill="#18181B" stroke="#27272A"/>
+      <text x="725" y="32" font-family="'Inter Tight', sans-serif" font-size="12" fill="#A1A1AA">IMAGE COMPRESSION</text>
+      <text x="725" y="68" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700" fill="#10B981">68%</text>
+      <text x="835" y="65" font-family="'Inter Tight', sans-serif" font-size="11" fill="#71717A">WebP</text>
+    </g>
+
+    <!-- Article Table Mockup -->
+    <g transform="translate(0, 185)">
+      <rect width="920" height="480" rx="8" fill="#18181B" stroke="#27272A"/>
+
+      <!-- Table Header -->
+      <rect width="920" height="42" fill="#202024" rx="8 8 0 0"/>
+      <text x="24" y="26" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#A1A1AA">JUDUL BERITA</text>
+      <text x="460" y="26" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#A1A1AA">RUBRIK</text>
+      <text x="600" y="26" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#A1A1AA">STATUS</text>
+      <text x="740" y="26" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#A1A1AA">AUTHOR</text>
+      <text x="860" y="26" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#A1A1AA">AKSI</text>
+
+      <!-- Row 1 -->
+      <line x1="0" y1="95" x2="920" y2="95" stroke="#27272A"/>
+      <text x="24" y="70" font-family="'Inter Tight', sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Transformasi Ekosistem Digital Berbasis Artificial Intelligence di Indonesia</text>
+      <text x="24" y="86" font-family="'JetBrains Mono', monospace" font-size="11" fill="#71717A">ID: #ART-9842 • 10.42 WIB</text>
+      <text x="460" y="75" font-family="'Inter Tight', sans-serif" font-size="13" fill="#A1A1AA">Teknologi</text>
+      <rect x="595" y="60" width="85" height="22" rx="4" fill="#064E3B"/>
+      <text x="637" y="75" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#34D399" text-anchor="middle">PUBLISHED</text>
+      <text x="740" y="75" font-family="'Inter Tight', sans-serif" font-size="13" fill="#FFFFFF">Redaksi</text>
+      <text x="870" y="75" font-family="'Inter Tight', sans-serif" font-size="13" fill="#FF4D1C">Edit ↗</text>
+
+      <!-- Row 2 -->
+      <line x1="0" y1="150" x2="920" y2="150" stroke="#27272A"/>
+      <text x="24" y="125" font-family="'Inter Tight', sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Pemerintah Luncurkan Paket Akselerasi Digitalisasi UMKM 2024</text>
+      <text x="24" y="141" font-family="'JetBrains Mono', monospace" font-size="11" fill="#71717A">ID: #ART-9841 • 09.15 WIB</text>
+      <text x="460" y="130" font-family="'Inter Tight', sans-serif" font-size="13" fill="#A1A1AA">Ekonomi</text>
+      <rect x="595" y="115" width="85" height="22" rx="4" fill="#064E3B"/>
+      <text x="637" y="130" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#34D399" text-anchor="middle">PUBLISHED</text>
+      <text x="740" y="130" font-family="'Inter Tight', sans-serif" font-size="13" fill="#FFFFFF">Rafli I.</text>
+      <text x="870" y="130" font-family="'Inter Tight', sans-serif" font-size="13" fill="#FF4D1C">Edit ↗</text>
+
+      <!-- Row 3 -->
+      <line x1="0" y1="205" x2="920" y2="205" stroke="#27272A"/>
+      <text x="24" y="180" font-family="'Inter Tight', sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Analisis Kinerja Keuangan Kuartal III Emiten Perbankan BUMN</text>
+      <text x="24" y="196" font-family="'JetBrains Mono', monospace" font-size="11" fill="#71717A">ID: #ART-9840 • 08.30 WIB</text>
+      <text x="460" y="185" font-family="'Inter Tight', sans-serif" font-size="13" fill="#A1A1AA">Bisnis</text>
+      <rect x="595" y="170" width="85" height="22" rx="4" fill="#78350F"/>
+      <text x="637" y="185" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#FBBF24" text-anchor="middle">REVIEW</text>
+      <text x="740" y="185" font-family="'Inter Tight', sans-serif" font-size="13" fill="#FFFFFF">Jurnalis</text>
+      <text x="870" y="185" font-family="'Inter Tight', sans-serif" font-size="13" fill="#FF4D1C">Review ↗</text>
+
+      <!-- Row 4 -->
+      <text x="24" y="235" font-family="'Inter Tight', sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Inovasi Infrastruktur Cloud dan Penghematan Bandwidth Redaksi</text>
+      <text x="24" y="251" font-family="'JetBrains Mono', monospace" font-size="11" fill="#71717A">ID: #ART-9839 • Kemarin</text>
+      <text x="460" y="240" font-family="'Inter Tight', sans-serif" font-size="13" fill="#A1A1AA">Opini</text>
+      <rect x="595" y="225" width="85" height="22" rx="4" fill="#064E3B"/>
+      <text x="637" y="240" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#34D399" text-anchor="middle">PUBLISHED</text>
+      <text x="740" y="240" font-family="'Inter Tight', sans-serif" font-size="13" fill="#FFFFFF">Admin</text>
+      <text x="870" y="240" font-family="'Inter Tight', sans-serif" font-size="13" fill="#FF4D1C">Edit ↗</text>
+    </g>
+  </g>
+</svg>
