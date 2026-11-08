@@ -42,7 +42,7 @@ export default function Hero({ isLoaded }: HeroProps) {
         );
       }
 
-      // Fade-in metadata
+      // Fade-in metadata & luxury grid frames
       gsap.fromTo(
         [roleMetaRef.current, cornerLeftRef.current, cornerRightRef.current, scrollIndicatorRef.current],
         { opacity: 0, y: 20 },
@@ -55,6 +55,23 @@ export default function Hero({ isLoaded }: HeroProps) {
           delay: 0.65,
         }
       );
+
+      const frame1 = heroRef.current?.querySelector(".hero-box-frame-1");
+      const frame2 = heroRef.current?.querySelector(".hero-box-frame-2");
+      if (frame1) {
+        gsap.fromTo(
+          frame1,
+          { opacity: 0, scale: 0.95 },
+          { opacity: 1, scale: 1, duration: 1.2, ease: "power3.out", delay: 0.3 }
+        );
+      }
+      if (frame2) {
+        gsap.fromTo(
+          frame2,
+          { opacity: 0, scale: 0.97 },
+          { opacity: 1, scale: 1, duration: 1.4, ease: "power3.out", delay: 0.45 }
+        );
+      }
 
       // 2. High-Impact Scroll-Linked Scrub Parallax (Desktop & Mobile)
       const mm = gsap.matchMedia();
@@ -99,6 +116,25 @@ export default function Hero({ isLoaded }: HeroProps) {
         const watermark = heroRef.current?.querySelector(".hero-watermark");
         if (watermark) {
           scrubTl.to(watermark, { yPercent: 50, scale: 1.1, opacity: 0.08, ease: "none" }, 0);
+        }
+
+        // Luxury grid boxes differential parallax scrub
+        const gridMatrix = heroRef.current?.querySelector(".hero-grid-matrix");
+        const boxFrame1 = heroRef.current?.querySelector(".hero-box-frame-1");
+        const boxFrame2 = heroRef.current?.querySelector(".hero-box-frame-2");
+        const boxFrame3 = heroRef.current?.querySelector(".hero-box-frame-3");
+
+        if (gridMatrix) {
+          scrubTl.to(gridMatrix, { yPercent: 18, ease: "none" }, 0);
+        }
+        if (boxFrame1) {
+          scrubTl.to(boxFrame1, { y: 70, scale: 0.97, opacity: 0.35, ease: "none" }, 0);
+        }
+        if (boxFrame2) {
+          scrubTl.to(boxFrame2, { y: -50, scale: 1.02, opacity: 0.25, ease: "none" }, 0);
+        }
+        if (boxFrame3) {
+          scrubTl.to(boxFrame3, { y: 95, opacity: 0.1, ease: "none" }, 0);
         }
 
         if (roleMetaRef.current) {
@@ -157,6 +193,15 @@ export default function Hero({ isLoaded }: HeroProps) {
           scrubTl.to(watermark, { yPercent: 35, opacity: 0.06, ease: "none" }, 0);
         }
 
+        const gridMatrix = heroRef.current?.querySelector(".hero-grid-matrix");
+        const boxFrame1 = heroRef.current?.querySelector(".hero-box-frame-1");
+        if (gridMatrix) {
+          scrubTl.to(gridMatrix, { yPercent: 12, ease: "none" }, 0);
+        }
+        if (boxFrame1) {
+          scrubTl.to(boxFrame1, { y: 40, opacity: 0.3, ease: "none" }, 0);
+        }
+
         if (roleMetaRef.current) {
           scrubTl.to(roleMetaRef.current, { y: 80, opacity: 0, ease: "none" }, 0);
         }
@@ -193,11 +238,101 @@ export default function Hero({ isLoaded }: HeroProps) {
       ref={heroRef}
       className="relative min-h-screen pt-28 sm:pt-36 pb-12 px-6 sm:px-10 flex flex-col justify-between border-b border-[#0E0E0E]/15 overflow-hidden select-none bg-background text-foreground"
     >
-      {/* Editorial Grid Lines in Background */}
-      <div className="absolute inset-0 pointer-events-none grid grid-cols-6 lg:grid-cols-12 gap-0 border-x border-[#0E0E0E]/5 max-w-[1720px] mx-auto opacity-40">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <div key={i} className="border-r border-[#0E0E0E]/5 h-full" />
-        ))}
+      {/* LUXURY ARCHITECTURAL MODULAR GRID BOXES MATRIX */}
+      <div className="hero-grid-matrix absolute inset-0 pointer-events-none max-w-[1720px] mx-auto z-0 overflow-hidden will-change-transform">
+        {/* Full 2D Grid Matrix of Elegant Boxes */}
+        <div className="w-full h-full grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-12 grid-rows-4 sm:grid-rows-6 border-l border-t border-[#0E0E0E]/10">
+          {Array.from({ length: 48 }).map((_, i) => (
+            <div
+              key={i}
+              className="relative border-r border-b border-[#0E0E0E]/[0.08] flex flex-col justify-between p-2 sm:p-3 transition-colors duration-500"
+            >
+              {/* Intersection Crosshair (+) at select grid corners */}
+              {(i % 3 === 0 || i % 7 === 0) && (
+                <span className="absolute -top-[7px] -right-[7px] font-mono text-[9px] text-[#0E0E0E]/25 select-none z-10 leading-none">
+                  +
+                </span>
+              )}
+
+              {/* Luxury Micro-coordinates engraved in select cells */}
+              {i === 2 && (
+                <span className="font-mono text-[8px] text-muted/60 tracking-widest uppercase hidden lg:block">
+                  LOC // 106°49&apos;E
+                </span>
+              )}
+              {i === 7 && (
+                <span className="font-mono text-[8px] text-accent/70 tracking-widest uppercase font-semibold hidden sm:block">
+                  ● ARCHIVE 2026
+                </span>
+              )}
+              {i === 14 && (
+                <span className="font-mono text-[8px] text-muted/50 tracking-widest uppercase hidden lg:block">
+                  GRID // 02-B
+                </span>
+              )}
+              {i === 21 && (
+                <span className="font-mono text-[8px] text-muted/50 tracking-widest uppercase hidden lg:block">
+                  SWISS EDITORIAL
+                </span>
+              )}
+              {i === 35 && (
+                <span className="font-mono text-[8px] text-accent/60 tracking-widest uppercase font-semibold hidden sm:block">
+                  + REKAYASA RPL
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* LUXURY FLOATING ARCHITECTURAL FRAMES (Framing MUH RAFLI ICHSAN) */}
+        {/* Frame 1: Prominent Luxury Glassmorphic Double-Border Box */}
+        <div className="hero-box-frame-1 absolute top-[28%] sm:top-[26%] left-[4%] sm:left-[8%] right-[4%] sm:right-[10%] h-[44%] sm:h-[48%] border border-[#0E0E0E]/15 bg-surface/30 backdrop-blur-[1px] shadow-sm pointer-events-none will-change-transform">
+          {/* Subtle Inner Double Border */}
+          <div className="absolute inset-1.5 border border-[#0E0E0E]/10 pointer-events-none" />
+
+          {/* 4 Luxury Corner Accent Brackets */}
+          <div className="absolute -top-1.5 -left-1.5 w-3 h-3 border-t-2 border-l-2 border-accent" />
+          <div className="absolute -top-1.5 -right-1.5 w-3 h-3 border-t-2 border-r-2 border-accent" />
+          <div className="absolute -bottom-1.5 -left-1.5 w-3 h-3 border-b-2 border-l-2 border-accent" />
+          <div className="absolute -bottom-1.5 -right-1.5 w-3 h-3 border-b-2 border-r-2 border-accent" />
+
+          {/* Top Edge Luxury Metric Badge */}
+          <div className="absolute -top-3 left-6 sm:left-10 bg-background px-3 py-0.5 border border-[#0E0E0E]/15 font-mono text-[9px] tracking-widest uppercase text-muted flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+            <span className="text-foreground font-semibold">TYPOGRAPHIC MASTHEAD MATRIX</span>
+            <span className="text-[#0E0E0E]/30">//</span>
+            <span>ISSUE 01</span>
+          </div>
+
+          {/* Bottom Edge Registration Ticks */}
+          <div className="absolute -bottom-2.5 right-6 sm:right-10 bg-background px-2.5 py-0.5 border border-[#0E0E0E]/15 font-mono text-[8px] tracking-wider text-muted/80 uppercase hidden sm:flex items-center gap-1.5">
+            <span>CALIBRATION: 100% PRECISE</span>
+            <span className="text-accent">✓</span>
+          </div>
+        </div>
+
+        {/* Frame 2: Offset Geometric Blueprint Dashed Box (Opposing Depth) */}
+        <div className="hero-box-frame-2 absolute top-[34%] sm:top-[32%] left-[8%] sm:left-[14%] right-[2%] sm:right-[6%] h-[40%] sm:h-[44%] border border-dashed border-accent/25 pointer-events-none will-change-transform">
+          <div className="absolute top-2 right-3 font-mono text-[8px] text-[#0E0E0E]/30 tracking-widest uppercase hidden md:block">
+            BOX REF // MRI-2026-X
+          </div>
+        </div>
+
+        {/* Frame 3: Small luxury coordinate spec box in upper-right */}
+        <div className="hero-box-frame-3 absolute top-[20%] right-[6%] w-40 sm:w-48 h-20 sm:h-24 border border-[#0E0E0E]/15 bg-background/85 backdrop-blur-xs p-2.5 font-mono text-[9px] text-muted space-y-1 hidden md:block will-change-transform shadow-xs">
+          <div className="flex justify-between items-center text-[8px] text-accent font-bold border-b border-[#0E0E0E]/10 pb-1">
+            <span>SPEC. RATIO</span>
+            <span>16:9 GRID</span>
+          </div>
+          <div className="flex justify-between items-center text-[8px]">
+            <span>ENGINE</span>
+            <span className="text-foreground font-semibold">LARAVEL + NEXT</span>
+          </div>
+          <div className="flex justify-between items-center text-[8px]">
+            <span>CRAFT</span>
+            <span className="text-foreground font-semibold">SWISS EDITORIAL</span>
+          </div>
+        </div>
       </div>
 
       {/* Floating Parallax Editorial Watermark */}
