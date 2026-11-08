@@ -74,97 +74,97 @@ export default function AllWorksArchivePage() {
           </div>
         </div>
 
-        {/* Comprehensive Projects Grid */}
-        <div className="space-y-16 pt-6">
+        {/* 2-Column Responsive Grid (Compact & Well-Proportioned) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
           {PROFILE_DATA.projects.map((proj) => (
             <div
               key={proj.id}
-              className="border border-[#0E0E0E]/15 bg-surface p-6 sm:p-10 lg:p-12 space-y-8 hover:border-[#0E0E0E] transition-all shadow-sm"
+              className="border border-[#0E0E0E]/15 bg-surface p-6 sm:p-8 flex flex-col justify-between space-y-6 hover:border-[#0E0E0E] transition-all shadow-sm group"
             >
-              {/* Card Top Meta */}
-              <div className="flex flex-wrap justify-between items-baseline gap-4 border-b border-[#0E0E0E]/10 pb-4 font-mono text-xs">
-                <div className="flex items-baseline gap-3">
-                  <span className="font-serif italic text-3xl sm:text-4xl text-accent font-normal">
-                    {proj.index}
-                  </span>
-                  <span className="text-muted uppercase tracking-wider">
-                    {proj.client}
-                  </span>
-                </div>
-                <div className="flex items-center gap-3 text-muted">
-                  <span>{proj.period}</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                  <span className="text-foreground font-semibold uppercase">{proj.role}</span>
-                </div>
-              </div>
-
-              {/* Title & Tagline */}
-              <div className="space-y-2">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-sans font-bold text-foreground tracking-tight">
-                  {proj.title}
-                </h2>
-                <p className="font-serif italic text-lg sm:text-xl text-accent">
-                  {proj.tagline}
-                </p>
-              </div>
-
-              {/* Pure Screenshot Image Frame */}
-              <div className="relative w-full aspect-[16/9] max-h-[460px] overflow-hidden border border-[#0E0E0E]/15 bg-[#121214] shadow-inner group">
-                <img
-                  src={proj.image}
-                  alt={proj.title}
-                  className="w-full h-full object-cover object-top select-none group-hover:scale-102 transition-transform duration-500"
-                  loading="lazy"
-                />
-              </div>
-
-              {/* Summary & Narrative */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pt-2">
-                <div className="md:col-span-8 space-y-3 font-sans text-sm sm:text-base text-muted leading-relaxed">
-                  <p className="text-foreground font-medium">{proj.summary}</p>
-                  <p className="text-xs sm:text-sm">{proj.challenge}</p>
-                </div>
-
-                <div className="md:col-span-4 space-y-3 font-mono text-xs border-t md:border-t-0 md:border-l border-[#0E0E0E]/10 md:pl-6 pt-4 md:pt-0">
-                  <span className="text-muted uppercase block font-semibold">HASIL &amp; METRIK UTAMA:</span>
-                  <div className="space-y-2">
-                    {proj.metrics.map((m, idx) => (
-                      <div key={idx} className="flex justify-between items-center border-b border-[#0E0E0E]/10 pb-1.5">
-                        <span className="text-muted text-[11px] uppercase">{m.label}</span>
-                        <span className="font-bold text-accent text-sm">{m.value}</span>
-                      </div>
-                    ))}
+              <div className="space-y-4">
+                {/* Card Top Meta */}
+                <div className="flex justify-between items-baseline border-b border-[#0E0E0E]/10 pb-3 font-mono text-xs">
+                  <div className="flex items-baseline gap-2.5">
+                    <span className="font-serif italic text-3xl text-accent font-normal">
+                      {proj.index}
+                    </span>
+                    <span className="text-muted uppercase tracking-wider text-[11px] line-clamp-1">
+                      {proj.client}
+                    </span>
                   </div>
+                  <span className="text-foreground font-semibold text-[11px] uppercase flex-shrink-0">
+                    {proj.period}
+                  </span>
+                </div>
+
+                {/* Title & Tagline */}
+                <div className="space-y-1">
+                  <h2 className="text-xl sm:text-2xl font-sans font-bold text-foreground tracking-tight group-hover:text-accent transition-colors line-clamp-1">
+                    {proj.title}
+                  </h2>
+                  <p className="font-mono text-xs uppercase tracking-wider text-muted line-clamp-1">
+                    {proj.tagline}
+                  </p>
+                </div>
+
+                {/* Pure Screenshot Image Frame */}
+                <div className="relative w-full aspect-[16/10] overflow-hidden border border-[#0E0E0E]/15 bg-[#121214] shadow-inner">
+                  <img
+                    src={proj.image}
+                    alt={proj.title}
+                    className="w-full h-full object-cover object-top select-none group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+
+                {/* Summary */}
+                <p className="font-sans text-xs sm:text-sm text-muted leading-relaxed line-clamp-3">
+                  {proj.summary}
+                </p>
+
+                {/* Key Metrics Chips */}
+                <div className="grid grid-cols-2 gap-2 pt-1 font-mono text-[11px]">
+                  {proj.metrics.slice(0, 2).map((m, idx) => (
+                    <div key={idx} className="bg-background border border-[#0E0E0E]/10 p-2">
+                      <span className="text-muted uppercase text-[9px] block">{m.label}</span>
+                      <span className="font-bold text-accent text-xs">{m.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* Bottom Tech Stack & Action Links */}
-              <div className="flex flex-wrap justify-between items-center gap-4 pt-6 border-t border-[#0E0E0E]/10 font-mono text-xs">
+              {/* Bottom Tech Stack & Action Buttons */}
+              <div className="space-y-4 pt-4 border-t border-[#0E0E0E]/10 font-mono text-xs">
                 <div className="flex flex-wrap gap-1.5">
-                  {proj.stack.map((st, i) => (
+                  {proj.stack.slice(0, 4).map((st, i) => (
                     <span
                       key={i}
-                      className="px-2.5 py-1 text-[11px] bg-background border border-[#0E0E0E]/15 text-foreground uppercase tracking-wider"
+                      className="px-2 py-0.5 text-[10px] bg-background border border-[#0E0E0E]/10 text-foreground uppercase tracking-wider"
                     >
                       {st}
                     </span>
                   ))}
+                  {proj.stack.length > 4 && (
+                    <span className="px-1.5 py-0.5 text-[10px] text-muted">
+                      +{proj.stack.length - 4}
+                    </span>
+                  )}
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 pt-1">
                   <a
                     href={proj.githubUrl || "https://github.com/Sanlinex"}
                     target="_blank"
                     rel="noreferrer"
-                    className="py-2.5 px-4 border border-[#0E0E0E]/20 hover:border-[#0E0E0E] text-foreground tracking-wider uppercase transition-colors"
+                    className="flex-1 text-center py-2 px-3 border border-[#0E0E0E]/20 hover:border-[#0E0E0E] text-foreground tracking-wider uppercase transition-colors text-xs font-semibold"
                   >
                     GitHub ↗
                   </a>
                   <Link
                     href={`/work/${proj.slug}`}
-                    className="py-2.5 px-5 bg-accent hover:bg-accent/90 text-white font-bold tracking-wider uppercase transition-colors shadow-sm flex items-center gap-1.5"
+                    className="flex-1 text-center py-2 px-3 bg-accent hover:bg-accent/90 text-white font-bold tracking-wider uppercase transition-colors shadow-sm text-xs flex items-center justify-center gap-1.5"
                   >
-                    <span>Studi Kasus Lengkap</span>
+                    <span>Studi Kasus</span>
                     <span>→</span>
                   </Link>
                 </div>

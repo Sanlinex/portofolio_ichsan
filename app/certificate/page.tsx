@@ -74,89 +74,64 @@ export default function AllCertificatesArchivePage() {
           </div>
         </div>
 
-        {/* Certificates Grid */}
-        <div className="space-y-16 pt-6">
+        {/* 2-Column Responsive Grid (Compact & Well-Proportioned) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
           {PROFILE_DATA.achievements.map((ach) => (
             <div
               key={ach.id}
-              className="border border-[#0E0E0E]/15 bg-surface p-6 sm:p-10 lg:p-12 space-y-8 hover:border-[#0E0E0E] transition-all shadow-sm"
+              className="border border-[#0E0E0E]/15 bg-surface p-6 sm:p-8 flex flex-col justify-between space-y-6 hover:border-[#0E0E0E] transition-all shadow-sm group"
             >
-              {/* Header Row */}
-              <div className="flex flex-wrap justify-between items-baseline gap-4 border-b border-[#0E0E0E]/10 pb-4 font-mono text-xs">
-                <div className="flex items-baseline gap-3">
-                  <span className="font-serif italic text-4xl sm:text-5xl text-accent font-normal">
-                    {ach.rank}
+              <div className="space-y-4">
+                {/* Header Row */}
+                <div className="flex justify-between items-baseline border-b border-[#0E0E0E]/10 pb-3 font-mono text-xs">
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-serif italic text-3xl text-accent font-normal">
+                      {ach.rank}
+                    </span>
+                    <span className="text-muted uppercase tracking-wider text-[11px]">
+                      PLACE // {ach.year}
+                    </span>
+                  </div>
+                  <span className="text-foreground font-semibold text-[11px] uppercase flex-shrink-0">
+                    {ach.issuer}
                   </span>
-                  <span className="text-muted uppercase tracking-wider">
-                    PLACE // {ach.year}
-                  </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-accent" />
-                  <span className="text-foreground font-semibold uppercase">{ach.issuer}</span>
-                </div>
-              </div>
 
-              {/* Title & Category */}
-              <div className="space-y-2">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-sans font-bold text-foreground tracking-tight">
-                  {ach.title}
-                </h2>
-                <p className="font-serif italic text-lg sm:text-xl text-accent">
-                  {ach.category}
-                </p>
-              </div>
-
-              {/* Certificate Diploma Visual Preview */}
-              <div className="relative w-full aspect-[1200/850] max-h-[500px] bg-[#F8F6F0] border-2 border-[#0E0E0E]/15 overflow-hidden shadow-md flex items-center justify-center p-3 sm:p-6 group">
-                <img
-                  src={ach.certificatePlaceholder}
-                  alt={`Sertifikat ${ach.title} - ${ach.issuer}`}
-                  className="w-full h-full object-contain select-none group-hover:scale-102 transition-transform duration-500"
-                  loading="lazy"
-                />
-                <div className="absolute bottom-3 right-4 font-mono text-[9px] text-[#0E0E0E]/40 tracking-wider pointer-events-none hidden sm:block uppercase">
-                  MUH. RAFLI ICHSAN // VERIFIED DIPLOMA
-                </div>
-              </div>
-
-              {/* Description & Narrative */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pt-2">
-                <div className="md:col-span-8 space-y-3 font-sans text-sm sm:text-base text-muted leading-relaxed">
-                  <p className="text-foreground font-medium">{ach.description}</p>
-                  <p className="text-xs sm:text-sm">
-                    Karya rekayasa diuji langsung oleh dewan juri ahli dengan parameter penilaian arsitektur database, keamanan autentikasi API, dan kesesuaian antarmuka dengan spesifikasi instruksi LKS.
+                {/* Title & Category */}
+                <div className="space-y-1">
+                  <h2 className="text-xl sm:text-2xl font-sans font-bold text-foreground tracking-tight group-hover:text-accent transition-colors line-clamp-1">
+                    {ach.title}
+                  </h2>
+                  <p className="font-serif italic text-sm text-accent line-clamp-1">
+                    {ach.category}
                   </p>
                 </div>
 
-                <div className="md:col-span-4 space-y-3 font-mono text-xs border-t md:border-t-0 md:border-l border-[#0E0E0E]/10 md:pl-6 pt-4 md:pt-0">
-                  <span className="text-muted uppercase block font-semibold">INFORMASI DOKUMEN:</span>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between items-center border-b border-[#0E0E0E]/10 pb-1.5">
-                      <span className="text-muted">Penyelenggara:</span>
-                      <span className="font-medium text-foreground text-right">{ach.issuer}</span>
-                    </div>
-                    <div className="flex justify-between items-center border-b border-[#0E0E0E]/10 pb-1.5">
-                      <span className="text-muted">Tahun:</span>
-                      <span className="font-bold text-accent">{ach.year}</span>
-                    </div>
-                    <div className="flex justify-between items-center border-b border-[#0E0E0E]/10 pb-1.5">
-                      <span className="text-muted">Status:</span>
-                      <span className="font-semibold text-accent">Terverifikasi</span>
-                    </div>
+                {/* Certificate Diploma Visual Preview */}
+                <div className="relative w-full aspect-[1200/850] bg-[#F8F6F0] border border-[#0E0E0E]/15 overflow-hidden shadow-sm flex items-center justify-center p-2 group-hover:border-[#0E0E0E] transition-colors">
+                  <img
+                    src={ach.certificatePlaceholder}
+                    alt={`Sertifikat ${ach.title} - ${ach.issuer}`}
+                    className="w-full h-full object-contain select-none group-hover:scale-103 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute bottom-2 right-3 font-mono text-[8px] text-[#0E0E0E]/40 tracking-wider pointer-events-none hidden sm:block uppercase">
+                    MUH. RAFLI ICHSAN // VERIFIED
                   </div>
                 </div>
+
+                {/* Description */}
+                <p className="font-sans text-xs sm:text-sm text-muted leading-relaxed line-clamp-3">
+                  {ach.description}
+                </p>
               </div>
 
               {/* Bottom Actions */}
-              <div className="flex flex-wrap justify-between items-center gap-4 pt-6 border-t border-[#0E0E0E]/10 font-mono text-xs">
-                <div className="flex items-center gap-2 text-muted">
+              <div className="space-y-3 pt-3 border-t border-[#0E0E0E]/10 font-mono text-xs">
+                <div className="flex items-center gap-1.5 text-[11px] text-muted">
                   <span className="text-accent">📁</span>
-                  <span>
-                    File path:{" "}
-                    <code className="text-foreground font-semibold">
-                      public{ach.certificatePlaceholder}
-                    </code>
+                  <span className="truncate">
+                    File: <code className="text-foreground">public{ach.certificatePlaceholder}</code>
                   </span>
                 </div>
 
@@ -165,15 +140,15 @@ export default function AllCertificatesArchivePage() {
                     href={ach.certificatePlaceholder}
                     target="_blank"
                     rel="noreferrer"
-                    className="py-2.5 px-4 border border-[#0E0E0E]/20 hover:border-[#0E0E0E] text-foreground tracking-wider uppercase transition-colors"
+                    className="flex-1 text-center py-2 px-3 border border-[#0E0E0E]/20 hover:border-[#0E0E0E] text-foreground tracking-wider uppercase transition-colors text-xs font-semibold"
                   >
-                    Buka Berkas Asli ↗
+                    Buka Asli ↗
                   </a>
                   <Link
                     href={`/certificate/${ach.id}`}
-                    className="py-2.5 px-5 bg-accent hover:bg-accent/90 text-white font-bold tracking-wider uppercase transition-colors shadow-sm flex items-center gap-1.5"
+                    className="flex-1 text-center py-2 px-3 bg-accent hover:bg-accent/90 text-white font-bold tracking-wider uppercase transition-colors shadow-sm text-xs flex items-center justify-center gap-1"
                   >
-                    <span>Detail Sertifikat Lengkap</span>
+                    <span>Detail Sertifikat</span>
                     <span>→</span>
                   </Link>
                 </div>

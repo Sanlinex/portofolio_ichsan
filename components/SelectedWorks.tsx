@@ -183,7 +183,7 @@ export default function SelectedWorks() {
               key={proj.id}
               href={`/work/${proj.slug}`}
               data-cursor="View"
-              className="desktop-project-card w-[560px] lg:w-[640px] max-w-[85vw] h-[75vh] min-h-[420px] max-h-[580px] border border-[#0E0E0E]/15 bg-background flex flex-col justify-between p-6 sm:p-8 flex-shrink-0 group hover:border-[#0E0E0E] transition-all duration-300 select-none cursor-pointer shadow-sm hover:shadow-md"
+              className="desktop-project-card w-[480px] lg:w-[540px] max-w-[80vw] h-[68vh] min-h-[380px] max-h-[500px] border border-[#0E0E0E]/15 bg-background flex flex-col justify-between p-6 sm:p-7 flex-shrink-0 group hover:border-[#0E0E0E] transition-all duration-300 select-none cursor-pointer shadow-sm hover:shadow-md"
             >
               {/* Slide Top Meta */}
               <div className="flex justify-between items-start border-b border-[#0E0E0E]/10 pb-3">

@@ -79,105 +79,92 @@ export default function AllPostersArchivePage() {
           </div>
         </div>
 
-        {/* Series List with Interactive Multi-Poster Previews */}
-        <div className="space-y-20 pt-6">
+        {/* 2-Column Responsive Grid for Poster Series */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
           {PROFILE_DATA.posters.map((poster) => (
             <div
               key={poster.id}
-              className="border border-[#0E0E0E]/15 bg-surface p-6 sm:p-10 lg:p-12 space-y-8 hover:border-[#0E0E0E] transition-all shadow-sm"
+              className="border border-[#0E0E0E]/15 bg-surface p-6 sm:p-8 flex flex-col justify-between space-y-6 hover:border-[#0E0E0E] transition-all shadow-sm group"
             >
-              {/* Series Top Bar */}
-              <div className="flex flex-wrap justify-between items-baseline gap-4 border-b border-[#0E0E0E]/10 pb-4 font-mono text-xs">
-                <div className="flex items-baseline gap-3">
-                  <span className="font-serif italic text-4xl text-accent font-normal">
-                    {poster.index}
-                  </span>
-                  <span className="text-muted uppercase tracking-wider">
-                    {poster.category}
+              <div className="space-y-4">
+                {/* Series Top Bar */}
+                <div className="flex justify-between items-baseline border-b border-[#0E0E0E]/10 pb-3 font-mono text-xs">
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-serif italic text-3xl text-accent font-normal">
+                      {poster.index}
+                    </span>
+                    <span className="text-muted uppercase tracking-wider text-[11px] truncate max-w-[160px]">
+                      {poster.category}
+                    </span>
+                  </div>
+                  <span className="text-accent font-bold text-[11px]">
+                    [{poster.gallery.length} POSTER]
                   </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-accent font-bold">[{poster.gallery.length} POSTER DI DALAM]</span>
-                  <span className="text-muted">/</span>
-                  <span className="text-foreground">{poster.year}</span>
+
+                {/* Title & Subtitle */}
+                <div className="space-y-1">
+                  <h2 className="text-xl sm:text-2xl font-sans font-bold text-foreground tracking-tight group-hover:text-accent transition-colors line-clamp-1">
+                    {poster.title}
+                  </h2>
+                  <p className="font-mono text-xs uppercase tracking-wider text-muted line-clamp-1">
+                    {poster.subtitle}
+                  </p>
                 </div>
-              </div>
 
-              {/* Title & Subtitle */}
-              <div className="space-y-2">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-sans font-bold text-foreground tracking-tight">
-                  {poster.title}
-                </h2>
-                <p className="font-serif italic text-lg sm:text-xl text-accent">
-                  {poster.subtitle}
-                </p>
-              </div>
-
-              {/* Multi-Poster Grid Preview */}
-              <div className="space-y-3">
-                <span className="font-mono text-xs uppercase tracking-wider text-muted block">
-                  Koleksi Karya dalam Seri Ini ({poster.gallery.length} Desain):
-                </span>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                  {poster.gallery.map((item) => (
-                    <Link
-                      key={item.id}
-                      href={`/poster/${poster.id}`}
-                      className="group/sub p-2 border border-[#0E0E0E]/15 bg-background hover:border-accent transition-all block space-y-2 shadow-sm"
-                    >
-                      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#0A0A0C] border border-[#0E0E0E]/10">
+                {/* Multi-Poster Thumbnail Grid Preview */}
+                <div className="space-y-2">
+                  <span className="font-mono text-[11px] text-muted uppercase block">
+                    Koleksi ({poster.gallery.length} Edisi Poster):
+                  </span>
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                    {poster.gallery.map((item) => (
+                      <Link
+                        key={item.id}
+                        href={`/poster/${poster.id}`}
+                        className="group/sub relative aspect-[3/4] overflow-hidden border border-[#0E0E0E]/15 bg-[#0A0A0C] hover:border-accent transition-all block"
+                        title={item.title}
+                      >
                         <img
                           src={item.image}
                           alt={item.title}
-                          className="w-full h-full object-cover object-top select-none group-hover/sub:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover object-top select-none group-hover/sub:scale-110 transition-transform duration-300"
                           loading="lazy"
                         />
-                        <div className="absolute bottom-1.5 left-1.5 font-mono text-[9px] bg-black/80 text-white/90 px-1.5 py-0.5">
+                        <div className="absolute bottom-1 left-1 font-mono text-[8px] bg-black/80 text-white/90 px-1 py-0.5">
                           {item.index}
                         </div>
-                      </div>
-                      <div className="space-y-0.5">
-                        <p className="font-sans text-xs font-bold text-foreground group-hover/sub:text-accent transition-colors line-clamp-1">
-                          {item.title}
-                        </p>
-                        <p className="font-mono text-[10px] text-muted line-clamp-1 uppercase">
-                          {item.dimensions}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
+
+                {/* Description */}
+                <p className="font-sans text-xs sm:text-sm text-muted leading-relaxed line-clamp-3">
+                  {poster.description}
+                </p>
               </div>
 
-              {/* Description & Tools */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pt-4 border-t border-[#0E0E0E]/10">
-                <div className="md:col-span-8 font-sans text-sm sm:text-base text-muted leading-relaxed">
-                  <p>{poster.description}</p>
-                </div>
-                <div className="md:col-span-4 flex flex-col justify-between space-y-3 font-mono text-xs">
-                  <div>
-                    <span className="text-muted uppercase block mb-1">TOOLS:</span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {poster.tools.map((t, i) => (
-                        <span
-                          key={i}
-                          className="px-2 py-0.5 bg-background border border-[#0E0E0E]/10 text-foreground text-[10px] uppercase"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="pt-2">
-                    <Link
-                      href={`/poster/${poster.id}`}
-                      className="py-2.5 px-5 bg-accent hover:bg-accent/90 text-white font-bold tracking-wider uppercase transition-colors shadow-sm flex items-center justify-center gap-1.5 w-full text-center"
+              {/* Tools & CTA Button */}
+              <div className="space-y-4 pt-4 border-t border-[#0E0E0E]/10 font-mono text-xs">
+                <div className="flex flex-wrap gap-1.5">
+                  {poster.tools.map((t, i) => (
+                    <span
+                      key={i}
+                      className="px-2 py-0.5 bg-background border border-[#0E0E0E]/10 text-foreground text-[10px] uppercase"
                     >
-                      <span>Buka Studio Seri {poster.index}</span>
-                      <span>→</span>
-                    </Link>
-                  </div>
+                      {t}
+                    </span>
+                  ))}
                 </div>
+
+                <Link
+                  href={`/poster/${poster.id}`}
+                  className="py-2.5 px-4 bg-accent hover:bg-accent/90 text-white font-bold tracking-wider uppercase transition-colors shadow-sm flex items-center justify-center gap-1.5 w-full text-center text-xs"
+                >
+                  <span>Buka Studio Seri {poster.index}</span>
+                  <span>→</span>
+                </Link>
               </div>
             </div>
           ))}
