@@ -37,21 +37,44 @@ export default function Experience() {
       // 2. Rows Stagger Entrance
       const rowItems = rowsRef.current?.querySelectorAll(".exp-row-item");
       if (rowItems && !prefersReducedMotion) {
-        gsap.fromTo(
-          rowItems,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.16,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: rowsRef.current,
-              start: "top 80%",
-            },
-          }
-        );
+        const mm = gsap.matchMedia();
+
+        mm.add("(min-width: 768px)", () => {
+          gsap.fromTo(
+            rowItems,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              stagger: 0.16,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: rowsRef.current,
+                start: "top 80%",
+              },
+            }
+          );
+        });
+
+        mm.add("(max-width: 767px)", () => {
+          rowItems.forEach((item) => {
+            gsap.fromTo(
+              item,
+              { opacity: 0, y: 35 },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: item,
+                  start: "top 88%",
+                },
+              }
+            );
+          });
+        });
       }
     },
     { scope: containerRef }

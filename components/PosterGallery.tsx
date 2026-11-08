@@ -17,55 +17,102 @@ export default function PosterGallery() {
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (prefersReducedMotion) return;
 
-      // Differential column parallax speeds
-      if (col1Ref.current && col2Ref.current) {
-        gsap.to(col1Ref.current, {
-          y: -30,
-          ease: "none",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 90%",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        });
+      const mm = gsap.matchMedia();
 
-        gsap.to(col2Ref.current, {
-          y: 40,
-          ease: "none",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 90%",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        });
-      }
-
-      // Clip-path reveal for poster cards
-      const cards = containerRef.current?.querySelectorAll(".poster-card");
-      if (cards) {
-        gsap.fromTo(
-          cards,
-          {
-            clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
-            opacity: 0,
-            y: 40,
-          },
-          {
-            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-            opacity: 1,
-            y: 0,
-            duration: 0.9,
-            stagger: 0.18,
-            ease: "power3.out",
+      // Desktop: 2-column differential parallax
+      mm.add("(min-width: 768px)", () => {
+        if (col1Ref.current && col2Ref.current) {
+          gsap.to(col1Ref.current, {
+            y: -30,
+            ease: "none",
             scrollTrigger: {
               trigger: containerRef.current,
-              start: "top 75%",
+              start: "top 90%",
+              end: "bottom top",
+              scrub: 1.2,
             },
-          }
-        );
-      }
+          });
+
+          gsap.to(col2Ref.current, {
+            y: 40,
+            ease: "none",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 90%",
+              end: "bottom top",
+              scrub: 1.2,
+            },
+          });
+        }
+
+        const cards = containerRef.current?.querySelectorAll(".poster-card");
+        if (cards) {
+          gsap.fromTo(
+            cards,
+            {
+              clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
+              opacity: 0,
+              y: 40,
+            },
+            {
+              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+              opacity: 1,
+              y: 0,
+              duration: 0.9,
+              stagger: 0.18,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top 75%",
+              },
+            }
+          );
+        }
+      });
+
+      // Mobile: Individual scroll-triggered reveals + tactile internal image parallax
+      mm.add("(max-width: 767px)", () => {
+        const cards = containerRef.current?.querySelectorAll(".poster-card");
+        if (cards && cards.length > 0) {
+          cards.forEach((card) => {
+            gsap.fromTo(
+              card,
+              { opacity: 0, y: 35, scale: 0.98 },
+              {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top 88%",
+                },
+              }
+            );
+
+            const imgInner = card.querySelector(".poster-inner-img");
+            if (imgInner) {
+              gsap.fromTo(
+                imgInner,
+                { yPercent: -8 },
+                {
+                  yPercent: 8,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: card,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1.1,
+                  },
+                }
+              );
+            }
+          });
+        }
+      });
+
+      return () => mm.revert();
     },
     { scope: containerRef }
   );
@@ -122,12 +169,14 @@ export default function PosterGallery() {
               >
                 {/* Poster Graphic Frame with Real Artwork Image */}
                 <div className="relative aspect-[3/4] w-full bg-[#0E0E0E] overflow-hidden border border-[#0E0E0E]/15 group-hover:scale-[1.01] transition-transform duration-500 shadow-inner">
-                  <img
-                    src={poster.coverImage}
-                    alt={poster.title}
-                    className="w-full h-full object-cover object-top select-none group-hover:scale-105 transition-transform duration-700"
-                    loading="lazy"
-                  />
+                  <div className="poster-inner-img absolute -inset-y-5 inset-x-0 w-full h-[124%] will-change-transform">
+                    <img
+                      src={poster.coverImage}
+                      alt={poster.title}
+                      className="w-full h-full object-cover object-top select-none group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                  </div>
 
                   {/* Badge & Poster Count Pill */}
                   <div className="absolute top-4 left-4 font-mono text-[10px] bg-[#0E0E0E]/85 text-[#F2EFE9] border border-white/20 px-2.5 py-1 tracking-widest uppercase backdrop-blur-sm">
@@ -212,12 +261,14 @@ export default function PosterGallery() {
               >
                 {/* Poster Graphic Frame with Real Artwork Image */}
                 <div className="relative aspect-[3/4] w-full bg-[#0E0E0E] overflow-hidden border border-[#0E0E0E]/15 group-hover:scale-[1.01] transition-transform duration-500 shadow-inner">
-                  <img
-                    src={poster.coverImage}
-                    alt={poster.title}
-                    className="w-full h-full object-cover object-top select-none group-hover:scale-105 transition-transform duration-700"
-                    loading="lazy"
-                  />
+                  <div className="poster-inner-img absolute -inset-y-5 inset-x-0 w-full h-[124%] will-change-transform">
+                    <img
+                      src={poster.coverImage}
+                      alt={poster.title}
+                      className="w-full h-full object-cover object-top select-none group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                  </div>
 
                   {/* Badge & Poster Count Pill */}
                   <div className="absolute top-4 left-4 font-mono text-[10px] bg-[#0E0E0E]/85 text-[#F2EFE9] border border-white/20 px-2.5 py-1 tracking-widest uppercase backdrop-blur-sm">

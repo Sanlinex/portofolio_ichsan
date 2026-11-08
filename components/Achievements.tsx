@@ -36,29 +36,62 @@ export default function Achievements() {
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (prefersReducedMotion) return;
 
-      const rows = rowsContainerRef.current?.querySelectorAll(".ach-row");
-      if (rows) {
-        gsap.fromTo(
-          rows,
-          {
-            clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
-            opacity: 0,
-            y: 40,
-          },
-          {
-            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-            opacity: 1,
-            y: 0,
-            duration: 0.9,
-            stagger: 0.18,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: rowsContainerRef.current,
-              start: "top 80%",
+      const mm = gsap.matchMedia();
+
+      mm.add("(min-width: 768px)", () => {
+        const rows = rowsContainerRef.current?.querySelectorAll(".ach-row");
+        if (rows) {
+          gsap.fromTo(
+            rows,
+            {
+              clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
+              opacity: 0,
+              y: 40,
             },
-          }
-        );
-      }
+            {
+              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+              opacity: 1,
+              y: 0,
+              duration: 0.9,
+              stagger: 0.18,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: rowsContainerRef.current,
+                start: "top 80%",
+              },
+            }
+          );
+        }
+      });
+
+      mm.add("(max-width: 767px)", () => {
+        const rows = rowsContainerRef.current?.querySelectorAll(".ach-row");
+        if (rows) {
+          rows.forEach((row) => {
+            gsap.fromTo(
+              row,
+              {
+                clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
+                opacity: 0,
+                y: 30,
+              },
+              {
+                clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: row,
+                  start: "top 88%",
+                },
+              }
+            );
+          });
+        }
+      });
+
+      return () => mm.revert();
     },
     { scope: containerRef }
   );

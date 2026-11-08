@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useGSAP } from "@gsap/react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { PosterItem } from "@/data/profile";
 
 interface PosterStudioClientProps {
@@ -17,6 +19,13 @@ export default function PosterStudioClient({
 }: PosterStudioClientProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const activePoster = poster.gallery[activeIndex] || poster.gallery[0];
+  const containerRef = useRef<HTMLElement>(null);
+  const breadcrumbRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const stageImgRef = useRef<HTMLDivElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
+  const navCardsRef = useRef<HTMLDivElement>(null);
 
   // Keyboard navigation (ArrowLeft & ArrowRight to cycle posters)
   useEffect(() => {
@@ -31,17 +40,161 @@ export default function PosterStudioClient({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [poster.gallery.length]);
 
+  // Entrance & Parallax on Scroll
+  useGSAP(
+    () => {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReducedMotion) return;
+
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      if (breadcrumbRef.current) {
+        tl.fromTo(
+          breadcrumbRef.current,
+          { opacity: 0, y: -20 },
+          { opacity: 1, y: 0, duration: 0.6 }
+        );
+      }
+
+      if (headerRef.current) {
+        const metaPills = headerRef.current.querySelectorAll(".anim-meta");
+        const title = headerRef.current.querySelector(".anim-title");
+        const subtitle = headerRef.current.querySelector(".anim-sub");
+        const specs = headerRef.current.querySelectorAll(".anim-spec");
+
+        tl.fromTo(
+          metaPills,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.06 },
+          "-=0.3"
+        );
+
+        if (title) {
+          tl.fromTo(
+            title,
+            { clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)", y: 35, opacity: 0 },
+            { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", y: 0, opacity: 1, duration: 0.9, ease: "power4.out" },
+            "-=0.3"
+          );
+        }
+
+        if (subtitle) {
+          tl.fromTo(subtitle, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, "-=0.5");
+        }
+
+        if (specs) {
+          tl.fromTo(specs, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 }, "-=0.4");
+        }
+      }
+
+      // Stage Entrance & Parallax Scrub
+      if (stageRef.current) {
+        gsap.fromTo(
+          stageRef.current,
+          { opacity: 0, y: 40, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: stageRef.current,
+              start: "top 85%",
+            },
+          }
+        );
+
+        if (stageImgRef.current) {
+          gsap.fromTo(
+            stageImgRef.current,
+            { yPercent: -5 },
+            {
+              yPercent: 5,
+              ease: "none",
+              scrollTrigger: {
+                trigger: stageRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.2,
+              },
+            }
+          );
+        }
+      }
+
+      // Thumbnail strip reveal
+      if (stripRef.current) {
+        const thumbs = stripRef.current.querySelectorAll(".anim-thumb");
+        if (thumbs.length > 0) {
+          gsap.fromTo(
+            thumbs,
+            { opacity: 0, y: 30, scale: 0.95 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.6,
+              stagger: 0.08,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: stripRef.current,
+                start: "top 85%",
+              },
+            }
+          );
+        }
+      }
+
+      // Next series navigation cards
+      if (navCardsRef.current) {
+        gsap.fromTo(
+          navCardsRef.current,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: navCardsRef.current,
+              start: "top 88%",
+            },
+          }
+        );
+      }
+    },
+    { scope: containerRef }
+  );
+
+  // Smooth switch animation when active poster changes
+  const activeImageRef = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    if (!activeImageRef.current) return;
+    gsap.fromTo(
+      activeImageRef.current,
+      { opacity: 0.3, scale: 0.98 },
+      { opacity: 1, scale: 1, duration: 0.45, ease: "power2.out" }
+    );
+  }, [activeIndex]);
+
   return (
-    <article className="min-h-screen w-full bg-background text-foreground pt-28 pb-24 px-6 sm:px-10 lg:px-16 selection:bg-accent selection:text-[#F2EFE9]">
+    <article
+      ref={containerRef}
+      className="min-h-screen w-full bg-background text-foreground pt-28 pb-24 px-6 sm:px-10 lg:px-16 selection:bg-accent selection:text-[#F2EFE9]"
+    >
       <div className="max-w-6xl mx-auto space-y-16">
         {/* Navigation Breadcrumb Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#0E0E0E]/15 pb-6 font-mono text-xs uppercase tracking-widest text-muted">
+        <div
+          ref={breadcrumbRef}
+          className="flex flex-wrap items-center justify-between gap-4 border-b border-[#0E0E0E]/15 pb-6 font-mono text-xs uppercase tracking-widest text-muted"
+        >
           <Link
-            href="/#posters"
+            href="/poster"
             className="group inline-flex items-center gap-2 text-foreground hover:text-accent transition-colors font-semibold"
           >
             <span className="transition-transform group-hover:-translate-x-1">←</span>
-            <span>KEMBALI KE POSTER GALLERY // ARCHIVE</span>
+            <span>KEMBALI KE SEMUA POSTER // ARCHIVE</span>
           </Link>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
@@ -52,40 +205,40 @@ export default function PosterStudioClient({
         </div>
 
         {/* Series Header */}
-        <div className="space-y-6">
+        <div ref={headerRef} className="space-y-6">
           <div className="flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-wider text-muted">
-            <span className="px-2.5 py-1 border border-accent text-accent font-bold">
+            <span className="anim-meta px-2.5 py-1 border border-accent text-accent font-bold">
               SERIES {poster.index}
             </span>
-            <span>/</span>
-            <span className="text-foreground font-semibold">{poster.category}</span>
-            <span>/</span>
-            <span>{poster.year}</span>
+            <span className="anim-meta">/</span>
+            <span className="anim-meta text-foreground font-semibold">{poster.category}</span>
+            <span className="anim-meta">/</span>
+            <span className="anim-meta">{poster.year}</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-sans font-bold tracking-tight text-foreground leading-[1.05]">
+          <h1 className="anim-title text-4xl sm:text-6xl lg:text-7xl font-sans font-bold tracking-tight text-foreground leading-[1.05]">
             {poster.title}
           </h1>
 
-          <p className="font-serif italic text-2xl sm:text-3xl text-muted max-w-4xl leading-relaxed">
+          <p className="anim-sub font-serif italic text-2xl sm:text-3xl text-muted max-w-4xl leading-relaxed">
             {poster.subtitle}
           </p>
 
           {/* Quick Meta Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-[#0E0E0E]/15 font-mono text-xs">
-            <div>
+            <div className="anim-spec">
               <p className="text-muted uppercase tracking-wider mb-1">Total Poster</p>
               <p className="font-semibold text-accent">{poster.gallery.length} Desain Lengkap</p>
             </div>
-            <div>
+            <div className="anim-spec">
               <p className="text-muted uppercase tracking-wider mb-1">Format &amp; Dimensi</p>
               <p className="font-semibold text-foreground">B1 (700 × 1000 MM)</p>
             </div>
-            <div>
+            <div className="anim-spec">
               <p className="text-muted uppercase tracking-wider mb-1">Grid &amp; Tipografi</p>
               <p className="font-semibold text-foreground">Swiss 12-Col Modular</p>
             </div>
-            <div>
+            <div className="anim-spec">
               <p className="text-muted uppercase tracking-wider mb-1">Perangkat Desain</p>
               <p className="font-semibold text-foreground">{poster.tools.slice(0, 2).join(", ")}</p>
             </div>
@@ -93,15 +246,21 @@ export default function PosterStudioClient({
         </div>
 
         {/* Dedicated Interactive Poster Stage */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div ref={stageRef} className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Left Column: High-Res Active Poster Viewer Canvas */}
           <div className="lg:col-span-7 space-y-4">
             <div className="relative aspect-[3/4] w-full bg-[#0A0A0C] border-2 border-[#0E0E0E]/20 overflow-hidden shadow-2xl flex items-center justify-center p-3 sm:p-6 group">
-              <img
-                src={activePoster.image}
-                alt={activePoster.title}
-                className="w-full h-full object-contain select-none transition-all duration-300"
-              />
+              <div
+                ref={stageImgRef}
+                className="w-full h-full flex items-center justify-center will-change-transform"
+              >
+                <img
+                  ref={activeImageRef}
+                  src={activePoster.image}
+                  alt={activePoster.title}
+                  className="w-full h-full object-contain select-none transition-transform duration-300"
+                />
+              </div>
 
               {/* Navigation Arrows Overlay */}
               <button
@@ -234,7 +393,7 @@ export default function PosterStudioClient({
         </div>
 
         {/* Multi-Poster Strip: "di dalam detail poster ada banyak poster nya" */}
-        <div className="space-y-6 pt-10 border-t border-[#0E0E0E]/15">
+        <div ref={stripRef} className="space-y-6 pt-10 border-t border-[#0E0E0E]/15">
           <div className="flex flex-wrap justify-between items-baseline gap-4 font-mono text-xs">
             <div>
               <span className="text-accent font-bold uppercase tracking-wider block">
@@ -254,7 +413,7 @@ export default function PosterStudioClient({
               <button
                 key={sub.id}
                 onClick={() => setActiveIndex(idx)}
-                className={`p-3 border text-left transition-all cursor-pointer flex flex-col space-y-3 group ${
+                className={`anim-thumb p-3 border text-left transition-all cursor-pointer flex flex-col space-y-3 group ${
                   activeIndex === idx
                     ? "border-accent bg-accent/5 ring-2 ring-accent shadow-lg"
                     : "border-[#0E0E0E]/15 bg-surface hover:border-[#0E0E0E] hover:shadow-md"
@@ -295,11 +454,11 @@ export default function PosterStudioClient({
         </div>
 
         {/* Navigation to Next / Previous Poster Series */}
-        <div className="pt-12 border-t border-[#0E0E0E]/15">
+        <div ref={navCardsRef} className="pt-12 border-t border-[#0E0E0E]/15">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <Link
               href={`/poster/${prevPoster.id}`}
-              className="p-6 border border-[#0E0E0E]/15 bg-surface hover:border-[#0E0E0E] transition-all group block space-y-2"
+              className="p-6 border border-[#0E0E0E]/15 bg-surface hover:border-[#0E0E0E] transition-all group block space-y-2 shadow-sm"
             >
               <span className="font-mono text-xs text-muted block group-hover:text-accent transition-colors">
                 ← PREVIOUS SERIES (SERIES {prevPoster.index})
@@ -311,7 +470,7 @@ export default function PosterStudioClient({
 
             <Link
               href={`/poster/${nextPoster.id}`}
-              className="p-6 border border-[#0E0E0E]/15 bg-surface hover:border-[#0E0E0E] transition-all group block space-y-2 sm:text-right"
+              className="p-6 border border-[#0E0E0E]/15 bg-surface hover:border-[#0E0E0E] transition-all group block space-y-2 sm:text-right shadow-sm"
             >
               <span className="font-mono text-xs text-muted block group-hover:text-accent transition-colors">
                 NEXT SERIES (SERIES {nextPoster.index}) →

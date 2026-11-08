@@ -98,21 +98,43 @@ export default function SelectedWorks() {
       mm.add("(max-width: 767px)", () => {
         const cards = container.querySelectorAll(".mobile-project-card");
         if (cards && cards.length > 0) {
-          gsap.fromTo(
-            cards,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              stagger: 0.15,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: container,
-                start: "top 75%",
-              },
+          cards.forEach((card) => {
+            // Staggered card entrance as each card enters viewport
+            gsap.fromTo(
+              card,
+              { opacity: 0, y: 40, scale: 0.98 },
+              {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top 88%",
+                },
+              }
+            );
+
+            // Tactile internal vertical image parallax on mobile scroll
+            const imgInner = card.querySelector(".mobile-project-img-inner");
+            if (imgInner) {
+              gsap.fromTo(
+                imgInner,
+                { yPercent: -8 },
+                {
+                  yPercent: 8,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: card,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1.1,
+                  },
+                }
+              );
             }
-          );
+          });
         }
       });
 
@@ -312,14 +334,16 @@ export default function SelectedWorks() {
                 <span>{proj.period}</span>
               </div>
 
-              {/* Mobile Project Screenshot Frame - Pure Photo, No Fake Text */}
+              {/* Mobile Project Screenshot Frame with Parallax Inner */}
               <div className="relative w-full aspect-[16/10] overflow-hidden border border-[#0E0E0E]/15 bg-[#121214] shadow-inner">
-                <img
-                  src={proj.image}
-                  alt={proj.title}
-                  className="w-full h-full object-cover object-top select-none"
-                  loading="lazy"
-                />
+                <div className="mobile-project-img-inner absolute -inset-y-5 inset-x-0 w-full h-[126%] will-change-transform">
+                  <img
+                    src={proj.image}
+                    alt={proj.title}
+                    className="w-full h-full object-cover object-top select-none"
+                    loading="lazy"
+                  />
+                </div>
               </div>
 
               <h3 className="text-2xl font-sans font-bold tracking-tight text-foreground">
