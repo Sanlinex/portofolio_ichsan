@@ -23,9 +23,6 @@ export default function AllPostersClient({ posters }: AllPostersClientProps) {
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
-
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       if (breadcrumbRef.current) {
@@ -67,10 +64,10 @@ export default function AllPostersClient({ posters }: AllPostersClientProps) {
         }
       }
 
-      // Card reveals on scroll
+      // Card reveals & differential column depth on scroll
       if (gridRef.current) {
         const cards = gridRef.current.querySelectorAll(".archive-poster-card");
-        cards.forEach((card) => {
+        cards.forEach((card, idx) => {
           gsap.fromTo(
             card,
             { opacity: 0, y: 40, scale: 0.98 },
@@ -83,6 +80,23 @@ export default function AllPostersClient({ posters }: AllPostersClientProps) {
               scrollTrigger: {
                 trigger: card,
                 start: "top 88%",
+              },
+            }
+          );
+
+          // Asymmetric column depth on scroll
+          const shift = idx % 2 === 0 ? -25 : 25;
+          gsap.fromTo(
+            card,
+            { y: shift },
+            {
+              y: -shift,
+              ease: "none",
+              scrollTrigger: {
+                trigger: card,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.2,
               },
             }
           );

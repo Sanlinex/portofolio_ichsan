@@ -25,8 +25,6 @@ export default function Hero({ isLoaded }: HeroProps) {
     () => {
       if (!isLoaded) return;
 
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
       // 1. Initial Character Mask Reveal
       const chars = heroRef.current?.querySelectorAll(".hero-char");
       if (chars && chars.length > 0) {
@@ -58,56 +56,116 @@ export default function Hero({ isLoaded }: HeroProps) {
         }
       );
 
-      if (prefersReducedMotion) return;
+      // 2. High-Impact Scroll-Linked Scrub Parallax (Desktop & Mobile)
+      const mm = gsap.matchMedia();
 
-      // 2. Scroll-Linked Scrub Animation
-      const scrubTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1.2,
-        },
+      // Desktop / Tablet (>= 768px)
+      mm.add("(min-width: 768px)", () => {
+        const scrubTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.2,
+          },
+        });
+
+        if (line1Ref.current && line2Ref.current) {
+          scrubTl.to(
+            line1Ref.current,
+            {
+              xPercent: -45,
+              y: -40,
+              scale: 0.92,
+              opacity: 0.1,
+              ease: "none",
+            },
+            0
+          );
+
+          scrubTl.to(
+            line2Ref.current,
+            {
+              xPercent: 45,
+              y: 40,
+              scale: 0.92,
+              opacity: 0.1,
+              ease: "none",
+            },
+            0
+          );
+        }
+
+        const watermark = heroRef.current?.querySelector(".hero-watermark");
+        if (watermark) {
+          scrubTl.to(watermark, { yPercent: 50, scale: 1.1, opacity: 0.08, ease: "none" }, 0);
+        }
+
+        if (roleMetaRef.current) {
+          scrubTl.to(roleMetaRef.current, { y: 140, opacity: 0, ease: "none" }, 0);
+        }
+        if (cornerLeftRef.current) {
+          scrubTl.to(cornerLeftRef.current, { y: -90, opacity: 0.2, ease: "none" }, 0);
+        }
+        if (cornerRightRef.current) {
+          scrubTl.to(cornerRightRef.current, { y: -70, opacity: 0.2, ease: "none" }, 0);
+        }
+        if (scrollIndicatorRef.current) {
+          scrubTl.to(scrollIndicatorRef.current, { opacity: 0, y: 50, ease: "none" }, 0);
+        }
       });
 
-      // Line 1 moves left, Line 2 moves right, both shrink and fade
-      if (line1Ref.current && line2Ref.current) {
-        scrubTl.to(
-          line1Ref.current,
-          {
-            xPercent: -20,
-            scale: 0.94,
-            opacity: 0.12,
-            ease: "none",
+      // Mobile (< 768px): Distinct, smooth opposing parallax without breaking horizontal bounds
+      mm.add("(max-width: 767px)", () => {
+        const scrubTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
           },
-          0
-        );
+        });
 
-        scrubTl.to(
-          line2Ref.current,
-          {
-            xPercent: 20,
-            scale: 0.94,
-            opacity: 0.12,
-            ease: "none",
-          },
-          0
-        );
-      }
+        if (line1Ref.current && line2Ref.current) {
+          scrubTl.to(
+            line1Ref.current,
+            {
+              xPercent: -28,
+              y: -25,
+              scale: 0.94,
+              opacity: 0.15,
+              ease: "none",
+            },
+            0
+          );
 
-      // Parallax corner & role metadata
-      if (roleMetaRef.current) {
-        scrubTl.to(roleMetaRef.current, { y: 120, opacity: 0, ease: "none" }, 0);
-      }
-      if (cornerLeftRef.current) {
-        scrubTl.to(cornerLeftRef.current, { y: -80, opacity: 0.2, ease: "none" }, 0);
-      }
-      if (cornerRightRef.current) {
-        scrubTl.to(cornerRightRef.current, { y: -60, opacity: 0.2, ease: "none" }, 0);
-      }
-      if (scrollIndicatorRef.current) {
-        scrubTl.to(scrollIndicatorRef.current, { opacity: 0, y: 40, ease: "none" }, 0);
-      }
+          scrubTl.to(
+            line2Ref.current,
+            {
+              xPercent: 28,
+              y: 25,
+              scale: 0.94,
+              opacity: 0.15,
+              ease: "none",
+            },
+            0
+          );
+        }
+
+        const watermark = heroRef.current?.querySelector(".hero-watermark");
+        if (watermark) {
+          scrubTl.to(watermark, { yPercent: 35, opacity: 0.06, ease: "none" }, 0);
+        }
+
+        if (roleMetaRef.current) {
+          scrubTl.to(roleMetaRef.current, { y: 80, opacity: 0, ease: "none" }, 0);
+        }
+        if (cornerLeftRef.current) {
+          scrubTl.to(cornerLeftRef.current, { y: -50, opacity: 0.2, ease: "none" }, 0);
+        }
+      });
+
+      return () => mm.revert();
     },
     { scope: heroRef, dependencies: [isLoaded] }
   );
@@ -140,6 +198,11 @@ export default function Hero({ isLoaded }: HeroProps) {
         {Array.from({ length: 12 }).map((_, i) => (
           <div key={i} className="border-r border-[#0E0E0E]/5 h-full" />
         ))}
+      </div>
+
+      {/* Floating Parallax Editorial Watermark */}
+      <div className="hero-watermark absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-[20vw] sm:text-[18vw] font-sans font-black text-[#0E0E0E]/[0.035] select-none whitespace-nowrap z-0 will-change-transform">
+        MUH. RAFLI
       </div>
 
       {/* Top Marginalia / Masthead Meta */}

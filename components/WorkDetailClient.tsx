@@ -26,9 +26,6 @@ export default function WorkDetailClient({
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
-
       // 1. Initial Page Entrance Stagger
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
@@ -81,7 +78,7 @@ export default function WorkDetailClient({
         }
       }
 
-      // 2. Visual Canvas Entrance & Internal Parallax on Scroll
+      // 2. Visual Canvas Entrance & High-Impact Internal Parallax on Scroll
       if (canvasRef.current) {
         gsap.fromTo(
           canvasRef.current,
@@ -102,9 +99,9 @@ export default function WorkDetailClient({
         if (imageInnerRef.current) {
           gsap.fromTo(
             imageInnerRef.current,
-            { yPercent: -8 },
+            { yPercent: -18 },
             {
-              yPercent: 8,
+              yPercent: 18,
               ease: "none",
               scrollTrigger: {
                 trigger: canvasRef.current,
@@ -249,7 +246,7 @@ export default function WorkDetailClient({
           <div className="relative w-full aspect-[16/9] max-h-[520px] border border-[#0E0E0E]/15 bg-[#121214] overflow-hidden shadow-lg">
             <div
               ref={imageInnerRef}
-              className="absolute -inset-y-6 inset-x-0 w-full h-[120%] will-change-transform"
+              className="absolute -inset-y-8 inset-x-0 w-full h-[140%] will-change-transform"
             >
               <img
                 src={project.image}

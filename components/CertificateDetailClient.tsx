@@ -27,9 +27,6 @@ export default function CertificateDetailClient({
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
-
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       if (breadcrumbRef.current) {
@@ -76,7 +73,7 @@ export default function CertificateDetailClient({
         }
       }
 
-      // Diploma Showcase Entrance & Parallax Scrub
+      // Diploma Showcase Entrance & High-Impact Parallax Scrub
       if (diplomaRef.current) {
         gsap.fromTo(
           diplomaRef.current,
@@ -97,9 +94,9 @@ export default function CertificateDetailClient({
         if (diplomaInnerRef.current) {
           gsap.fromTo(
             diplomaInnerRef.current,
-            { yPercent: -5 },
+            { yPercent: -16 },
             {
-              yPercent: 5,
+              yPercent: 16,
               ease: "none",
               scrollTrigger: {
                 trigger: diplomaRef.current,
@@ -234,7 +231,7 @@ export default function CertificateDetailClient({
           <div className="relative w-full aspect-[1200/850] bg-[#F8F6F0] border-2 border-[#0E0E0E]/20 overflow-hidden shadow-xl flex items-center justify-center p-3 sm:p-6 group">
             <div
               ref={diplomaInnerRef}
-              className="w-full h-full flex items-center justify-center will-change-transform"
+              className="absolute -inset-y-6 inset-x-0 w-full h-[135%] flex items-center justify-center will-change-transform"
             >
               <img
                 src={ach.certificatePlaceholder}

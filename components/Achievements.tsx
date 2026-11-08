@@ -30,11 +30,28 @@ export default function Achievements() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Entrance Clip-Path Reveal
+  // Entrance Clip-Path Reveal & Tactile Parallax
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
+      // 1. Floating Background Parallax Watermark
+      const watermark = containerRef.current?.querySelector(".ach-watermark");
+      if (watermark) {
+        gsap.fromTo(
+          watermark,
+          { yPercent: -35, opacity: 0.02 },
+          {
+            yPercent: 35,
+            opacity: 0.045,
+            ease: "none",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+            },
+          }
+        );
+      }
 
       const mm = gsap.matchMedia();
 
@@ -61,6 +78,27 @@ export default function Achievements() {
               },
             }
           );
+
+          // Massive Rank Numerals Parallax Scrub
+          rows.forEach((row) => {
+            const rankNum = row.querySelector(".ach-rank-num");
+            if (rankNum) {
+              gsap.fromTo(
+                rankNum,
+                { y: 35 },
+                {
+                  y: -35,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: row,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1.1,
+                  },
+                }
+              );
+            }
+          });
         }
       });
 
@@ -87,6 +125,24 @@ export default function Achievements() {
                 },
               }
             );
+
+            const rankNum = row.querySelector(".ach-rank-num");
+            if (rankNum) {
+              gsap.fromTo(
+                rankNum,
+                { y: 20 },
+                {
+                  y: -20,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: row,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1,
+                  },
+                }
+              );
+            }
           });
         }
       });
@@ -102,7 +158,12 @@ export default function Achievements() {
       ref={containerRef}
       className="relative min-h-screen w-full bg-background text-foreground border-b border-[#0E0E0E]/15 px-6 sm:px-10 py-20 sm:py-28 overflow-hidden"
     >
-      <div className="max-w-[1720px] mx-auto">
+      {/* Floating Parallax Editorial Watermark */}
+      <div className="ach-watermark absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-[22vw] sm:text-[18vw] font-serif italic font-normal text-[#0E0E0E]/[0.03] select-none whitespace-nowrap z-0 will-change-transform">
+        HONORS // 04
+      </div>
+
+      <div className="max-w-[1720px] mx-auto relative z-10">
         {/* Section Header */}
         <div className="flex flex-wrap items-center justify-between gap-4 pb-8 border-b border-[#0E0E0E]/15 font-mono text-xs tracking-wider text-muted">
           <div className="flex items-center gap-3">
@@ -152,7 +213,7 @@ export default function Achievements() {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-baseline">
                 {/* Massive Rank Typography */}
                 <div className="lg:col-span-3 flex items-baseline gap-4">
-                  <span className="font-serif italic text-6xl sm:text-7xl lg:text-8xl font-normal leading-none text-accent group-hover:text-accent transition-colors">
+                  <span className="ach-rank-num inline-block will-change-transform font-serif italic text-6xl sm:text-7xl lg:text-8xl font-normal leading-none text-accent group-hover:text-accent transition-colors">
                     {ach.rank}
                   </span>
                   <span className="font-mono text-xs uppercase tracking-widest text-muted group-hover:text-[#9E9B94]">

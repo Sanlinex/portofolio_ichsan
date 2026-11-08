@@ -20,9 +20,6 @@ export default function AllCertificatesClient({
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
-
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       if (breadcrumbRef.current) {
@@ -67,7 +64,7 @@ export default function AllCertificatesClient({
       // Card reveals and tactile diploma parallax on scroll
       if (gridRef.current) {
         const cards = gridRef.current.querySelectorAll(".archive-cert-card");
-        cards.forEach((card) => {
+        cards.forEach((card, idx) => {
           gsap.fromTo(
             card,
             { opacity: 0, y: 40, scale: 0.98 },
@@ -84,13 +81,30 @@ export default function AllCertificatesClient({
             }
           );
 
+          // Asymmetric column depth on scroll
+          const shift = idx % 2 === 0 ? -25 : 25;
+          gsap.fromTo(
+            card,
+            { y: shift },
+            {
+              y: -shift,
+              ease: "none",
+              scrollTrigger: {
+                trigger: card,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.2,
+              },
+            }
+          );
+
           const imgInner = card.querySelector(".archive-cert-img-inner");
           if (imgInner) {
             gsap.fromTo(
               imgInner,
-              { yPercent: -6 },
+              { yPercent: -16 },
               {
-                yPercent: 6,
+                yPercent: 16,
                 ease: "none",
                 scrollTrigger: {
                   trigger: card,
@@ -212,7 +226,7 @@ export default function AllCertificatesClient({
 
                 {/* Certificate Diploma Visual Preview with Parallax */}
                 <div className="relative w-full aspect-[1200/850] bg-[#F8F6F0] border border-[#0E0E0E]/15 overflow-hidden shadow-sm flex items-center justify-center p-2 group-hover:border-[#0E0E0E] transition-colors">
-                  <div className="archive-cert-img-inner w-full h-full flex items-center justify-center will-change-transform">
+                  <div className="archive-cert-img-inner absolute -inset-y-6 inset-x-0 w-full h-[135%] flex items-center justify-center will-change-transform">
                     <img
                       src={ach.certificatePlaceholder}
                       alt={`Sertifikat ${ach.title} - ${ach.issuer}`}

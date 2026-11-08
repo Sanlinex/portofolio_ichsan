@@ -52,12 +52,30 @@ export default function Skills() {
     };
   }, [lenis]);
 
-  // Entrance Reveal
+  // Entrance Reveal & Parallax Scrub
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
+      // 1. Floating Background Parallax Watermark
+      const watermark = containerRef.current?.querySelector(".skills-watermark");
+      if (watermark) {
+        gsap.fromTo(
+          watermark,
+          { yPercent: -30, opacity: 0.02 },
+          {
+            yPercent: 30,
+            opacity: 0.045,
+            ease: "none",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+            },
+          }
+        );
+      }
 
+      // 2. Skill Cards Stagger Reveal & Subtle Parallax Drift
       const skillCards = skillsGridRef.current?.querySelectorAll(".skill-card-item");
       if (skillCards) {
         gsap.fromTo(
@@ -75,6 +93,25 @@ export default function Skills() {
             },
           }
         );
+
+        // Differential parallax for alternating cards
+        skillCards.forEach((card, idx) => {
+          const shift = idx % 2 === 0 ? -15 : 15;
+          gsap.fromTo(
+            card,
+            { y: shift },
+            {
+              y: -shift,
+              ease: "none",
+              scrollTrigger: {
+                trigger: card,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.2,
+              },
+            }
+          );
+        });
       }
     },
     { scope: containerRef }
@@ -86,8 +123,13 @@ export default function Skills() {
       ref={containerRef}
       className="relative min-h-screen w-full bg-background text-foreground border-b border-[#0E0E0E]/15 py-20 sm:py-28 overflow-hidden"
     >
+      {/* Floating Parallax Editorial Watermark */}
+      <div className="skills-watermark absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-[22vw] sm:text-[18vw] font-sans font-black text-[#0E0E0E]/[0.03] select-none whitespace-nowrap z-0 will-change-transform">
+        ARSENAL // 05
+      </div>
+
       {/* Section Header */}
-      <div className="max-w-[1720px] mx-auto px-6 sm:px-10 pb-12">
+      <div className="max-w-[1720px] mx-auto px-6 sm:px-10 pb-12 relative z-10">
         <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#0E0E0E]/15 font-mono text-xs tracking-wider text-muted">
           <div className="flex items-center gap-3">
             <span className="px-2 py-0.5 border border-accent text-accent font-semibold text-[10px]">

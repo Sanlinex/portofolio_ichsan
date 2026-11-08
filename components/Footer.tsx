@@ -34,10 +34,8 @@ export default function Footer() {
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
       // 1. Scrub background color from off-white #F2EFE9 to deep black #0E0E0E
-      if (!prefersReducedMotion && footerRef.current) {
+      if (footerRef.current) {
         gsap.fromTo(
           footerRef.current,
           { backgroundColor: "#F2EFE9", color: "#0E0E0E" },
@@ -55,9 +53,29 @@ export default function Footer() {
         );
       }
 
-      // 2. Line-by-line reveal of giant "LET'S WORK TOGETHER"
+      // 2. Floating Background Parallax Watermark
+      const watermark = footerRef.current?.querySelector(".footer-watermark");
+      if (watermark) {
+        gsap.fromTo(
+          watermark,
+          { yPercent: -30, opacity: 0.02 },
+          {
+            yPercent: 30,
+            opacity: 0.05,
+            ease: "none",
+            scrollTrigger: {
+              trigger: footerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+            },
+          }
+        );
+      }
+
+      // 3. Line-by-line reveal of giant "LET'S WORK TOGETHER"
       const lines = headlineRef.current?.querySelectorAll(".headline-line");
-      if (lines && !prefersReducedMotion) {
+      if (lines && lines.length > 0) {
         gsap.fromTo(
           lines,
           { yPercent: 105, opacity: 0 },
@@ -73,6 +91,41 @@ export default function Footer() {
             },
           }
         );
+
+        // Opposing parallax scrub on headline lines
+        const line1 = lines[0];
+        const line2 = lines[1];
+        if (line1 && line2) {
+          gsap.fromTo(
+            line1,
+            { x: -30 },
+            {
+              x: 30,
+              ease: "none",
+              scrollTrigger: {
+                trigger: footerRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.2,
+              },
+            }
+          );
+
+          gsap.fromTo(
+            line2,
+            { x: 30 },
+            {
+              x: -30,
+              ease: "none",
+              scrollTrigger: {
+                trigger: footerRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.2,
+              },
+            }
+          );
+        }
       }
     },
     { scope: footerRef }
@@ -85,8 +138,13 @@ export default function Footer() {
       className="relative w-full min-h-screen px-6 sm:px-10 py-20 sm:py-28 flex flex-col justify-between overflow-hidden transition-colors"
       style={{ backgroundColor: "#0E0E0E", color: "#F2EFE9" }}
     >
+      {/* Floating Parallax Editorial Watermark */}
+      <div className="footer-watermark absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-[22vw] sm:text-[18vw] font-serif italic font-normal text-white/[0.03] select-none whitespace-nowrap z-0 will-change-transform">
+        CONNECT // 09
+      </div>
+
       {/* Top Header Colophon Bar */}
-      <div className="max-w-[1720px] mx-auto w-full border-b border-white/10 pb-8 flex flex-wrap justify-between items-center gap-4 font-mono text-xs text-[#9E9B94] uppercase tracking-wider">
+      <div className="max-w-[1720px] mx-auto w-full border-b border-white/10 pb-8 flex flex-wrap justify-between items-center gap-4 font-mono text-xs text-[#9E9B94] uppercase tracking-wider relative z-10">
         <div className="flex items-center gap-3">
           <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
           <span className="text-[#F2EFE9] font-semibold">09 // 09 CONTACT & COLOPHON</span>

@@ -11,9 +11,27 @@ export default function Education() {
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
+      // 1. Floating Background Parallax Watermark
+      const watermark = containerRef.current?.querySelector(".edu-watermark");
+      if (watermark) {
+        gsap.fromTo(
+          watermark,
+          { yPercent: -30, opacity: 0.02 },
+          {
+            yPercent: 30,
+            opacity: 0.045,
+            ease: "none",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+            },
+          }
+        );
+      }
 
+      // 2. Card Entrance & Subtle Parallax
       const lines = cardRef.current?.querySelectorAll(".edu-reveal");
       if (lines) {
         gsap.fromTo(
@@ -32,6 +50,23 @@ export default function Education() {
           }
         );
       }
+
+      if (cardRef.current) {
+        gsap.fromTo(
+          cardRef.current,
+          { y: 25 },
+          {
+            y: -25,
+            ease: "none",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+            },
+          }
+        );
+      }
     },
     { scope: containerRef }
   );
@@ -40,9 +75,14 @@ export default function Education() {
     <section
       id="education"
       ref={containerRef}
-      className="relative w-full bg-background text-foreground border-b border-[#0E0E0E]/15 px-6 sm:px-10 py-20 sm:py-24"
+      className="relative w-full bg-background text-foreground border-b border-[#0E0E0E]/15 px-6 sm:px-10 py-20 sm:py-24 overflow-hidden"
     >
-      <div className="max-w-[1720px] mx-auto">
+      {/* Floating Parallax Editorial Watermark */}
+      <div className="edu-watermark absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-[22vw] sm:text-[18vw] font-serif italic font-normal text-[#0E0E0E]/[0.03] select-none whitespace-nowrap z-0 will-change-transform">
+        FOUNDATION // 08
+      </div>
+
+      <div className="max-w-[1720px] mx-auto relative z-10">
         {/* Header */}
         <div className="flex flex-wrap items-center justify-between gap-4 pb-8 border-b border-[#0E0E0E]/15 font-mono text-xs tracking-wider text-muted">
           <div className="flex items-center gap-3">

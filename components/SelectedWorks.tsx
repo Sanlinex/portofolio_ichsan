@@ -83,9 +83,24 @@ export default function SelectedWorks() {
         if (images.length > 0) {
           tl.fromTo(
             images,
-            { xPercent: 10 },
+            { xPercent: 22 },
             {
-              xPercent: -10,
+              xPercent: -22,
+              ease: "none",
+              duration: 1,
+            },
+            0
+          );
+        }
+
+        // Horizontal index numeral differential drift
+        const indices = track.querySelectorAll(".desktop-project-card .proj-index-num");
+        if (indices.length > 0) {
+          tl.fromTo(
+            indices,
+            { x: 30 },
+            {
+              x: -30,
               ease: "none",
               duration: 1,
             },
@@ -116,20 +131,39 @@ export default function SelectedWorks() {
               }
             );
 
-            // Tactile internal vertical image parallax on mobile scroll
+            // High-impact tactile internal vertical image parallax on mobile scroll
             const imgInner = card.querySelector(".mobile-project-img-inner");
             if (imgInner) {
               gsap.fromTo(
                 imgInner,
-                { yPercent: -8 },
+                { yPercent: -18 },
                 {
-                  yPercent: 8,
+                  yPercent: 18,
                   ease: "none",
                   scrollTrigger: {
                     trigger: card,
                     start: "top bottom",
                     end: "bottom top",
-                    scrub: 1.1,
+                    scrub: 1,
+                  },
+                }
+              );
+            }
+
+            // Differential index numeral float
+            const indexNum = card.querySelector(".proj-index-num");
+            if (indexNum) {
+              gsap.fromTo(
+                indexNum,
+                { y: 18 },
+                {
+                  y: -18,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: card,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1,
                   },
                 }
               );
@@ -210,7 +244,7 @@ export default function SelectedWorks() {
               {/* Slide Top Meta */}
               <div className="flex justify-between items-start border-b border-[#0E0E0E]/10 pb-3">
                 <div className="flex items-baseline gap-3">
-                  <span className="font-serif italic text-3xl sm:text-4xl text-accent font-normal">
+                  <span className="proj-index-num inline-block will-change-transform font-serif italic text-3xl sm:text-4xl text-accent font-normal">
                     {proj.index}
                   </span>
                   <span className="font-mono text-xs uppercase tracking-wider text-muted font-medium line-clamp-1">
@@ -236,7 +270,7 @@ export default function SelectedWorks() {
 
               {/* Screenshot Image Frame with Internal Parallax - Pure Photo, No Fake Text */}
               <div className="relative w-full h-48 sm:h-56 lg:h-64 overflow-hidden border border-[#0E0E0E]/15 bg-[#121214] my-auto group-hover:border-[#0E0E0E] transition-colors shadow-inner">
-                <div className="project-inner-img absolute -inset-x-8 inset-y-0 w-[116%] h-full flex items-center justify-center will-change-transform">
+                <div className="project-inner-img absolute -inset-x-12 inset-y-0 w-[130%] h-full flex items-center justify-center will-change-transform">
                   <img
                     src={proj.image}
                     alt={proj.title}
@@ -328,7 +362,7 @@ export default function SelectedWorks() {
               className="mobile-project-card block border border-[#0E0E0E]/15 bg-background p-6 space-y-4 shadow-sm"
             >
               <div className="flex justify-between items-baseline font-mono text-xs text-muted border-b border-[#0E0E0E]/10 pb-3">
-                <span className="font-serif italic text-3xl text-accent font-normal">
+                <span className="proj-index-num inline-block will-change-transform font-serif italic text-3xl text-accent font-normal">
                   {proj.index}
                 </span>
                 <span>{proj.period}</span>
@@ -336,7 +370,7 @@ export default function SelectedWorks() {
 
               {/* Mobile Project Screenshot Frame with Parallax Inner */}
               <div className="relative w-full aspect-[16/10] overflow-hidden border border-[#0E0E0E]/15 bg-[#121214] shadow-inner">
-                <div className="mobile-project-img-inner absolute -inset-y-5 inset-x-0 w-full h-[126%] will-change-transform">
+                <div className="mobile-project-img-inner absolute -inset-y-8 inset-x-0 w-full h-[142%] will-change-transform">
                   <img
                     src={proj.image}
                     alt={proj.title}

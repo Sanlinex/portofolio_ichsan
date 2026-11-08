@@ -40,12 +40,9 @@ export default function PosterStudioClient({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [poster.gallery.length]);
 
-  // Entrance & Parallax on Scroll
+  // Entrance & High-Impact Parallax on Scroll
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
-
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       if (breadcrumbRef.current) {
@@ -87,7 +84,7 @@ export default function PosterStudioClient({
         }
       }
 
-      // Stage Entrance & Parallax Scrub
+      // Stage Entrance & High-Impact Parallax Scrub
       if (stageRef.current) {
         gsap.fromTo(
           stageRef.current,
@@ -108,9 +105,9 @@ export default function PosterStudioClient({
         if (stageImgRef.current) {
           gsap.fromTo(
             stageImgRef.current,
-            { yPercent: -5 },
+            { yPercent: -16 },
             {
-              yPercent: 5,
+              yPercent: 16,
               ease: "none",
               scrollTrigger: {
                 trigger: stageRef.current,
@@ -252,7 +249,7 @@ export default function PosterStudioClient({
             <div className="relative aspect-[3/4] w-full bg-[#0A0A0C] border-2 border-[#0E0E0E]/20 overflow-hidden shadow-2xl flex items-center justify-center p-3 sm:p-6 group">
               <div
                 ref={stageImgRef}
-                className="w-full h-full flex items-center justify-center will-change-transform"
+                className="absolute -inset-y-8 inset-x-0 w-full h-[138%] flex items-center justify-center will-change-transform"
               >
                 <img
                   ref={activeImageRef}

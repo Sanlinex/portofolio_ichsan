@@ -11,38 +11,63 @@ export default function PosterGallery() {
   const col1Ref = useRef<HTMLDivElement>(null);
   const col2Ref = useRef<HTMLDivElement>(null);
 
-  // Entrance & Differential Scroll Parallax
+  // Entrance & High-Impact Differential Scroll Parallax
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
+      // 1. Floating Background Parallax Watermark
+      const watermark = containerRef.current?.querySelector(".poster-watermark");
+      if (watermark) {
+        gsap.fromTo(
+          watermark,
+          { yPercent: -35, opacity: 0.02 },
+          {
+            yPercent: 35,
+            opacity: 0.045,
+            ease: "none",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+            },
+          }
+        );
+      }
 
       const mm = gsap.matchMedia();
 
-      // Desktop: 2-column differential parallax
+      // Desktop: Dramatic 2-column differential parallax (220px total speed separation)
       mm.add("(min-width: 768px)", () => {
         if (col1Ref.current && col2Ref.current) {
-          gsap.to(col1Ref.current, {
-            y: -30,
-            ease: "none",
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top 90%",
-              end: "bottom top",
-              scrub: 1.2,
-            },
-          });
+          gsap.fromTo(
+            col1Ref.current,
+            { y: 50 },
+            {
+              y: -110,
+              ease: "none",
+              scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.2,
+              },
+            }
+          );
 
-          gsap.to(col2Ref.current, {
-            y: 40,
-            ease: "none",
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top 90%",
-              end: "bottom top",
-              scrub: 1.2,
-            },
-          });
+          gsap.fromTo(
+            col2Ref.current,
+            { y: -50 },
+            {
+              y: 110,
+              ease: "none",
+              scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.2,
+              },
+            }
+          );
         }
 
         const cards = containerRef.current?.querySelectorAll(".poster-card");
@@ -67,10 +92,31 @@ export default function PosterGallery() {
               },
             }
           );
+
+          // Internal image camera depth scrub
+          cards.forEach((card) => {
+            const imgInner = card.querySelector(".poster-inner-img");
+            if (imgInner) {
+              gsap.fromTo(
+                imgInner,
+                { yPercent: -18 },
+                {
+                  yPercent: 18,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: card,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1.2,
+                  },
+                }
+              );
+            }
+          });
         }
       });
 
-      // Mobile: Individual scroll-triggered reveals + tactile internal image parallax
+      // Mobile: Individual scroll-triggered reveals + high-impact tactile internal image parallax
       mm.add("(max-width: 767px)", () => {
         const cards = containerRef.current?.querySelectorAll(".poster-card");
         if (cards && cards.length > 0) {
@@ -95,15 +141,15 @@ export default function PosterGallery() {
             if (imgInner) {
               gsap.fromTo(
                 imgInner,
-                { yPercent: -8 },
+                { yPercent: -18 },
                 {
-                  yPercent: 8,
+                  yPercent: 18,
                   ease: "none",
                   scrollTrigger: {
                     trigger: card,
                     start: "top bottom",
                     end: "bottom top",
-                    scrub: 1.1,
+                    scrub: 1,
                   },
                 }
               );
@@ -123,7 +169,12 @@ export default function PosterGallery() {
       ref={containerRef}
       className="relative z-10 min-h-screen w-full bg-background text-foreground border-b border-[#0E0E0E]/15 px-6 sm:px-10 py-20 sm:py-28 overflow-hidden"
     >
-      <div className="max-w-[1720px] mx-auto">
+      {/* Floating Parallax Editorial Watermark */}
+      <div className="poster-watermark absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-[22vw] sm:text-[18vw] font-serif italic font-normal text-[#0E0E0E]/[0.03] select-none whitespace-nowrap z-0 will-change-transform">
+        POSTER // 07
+      </div>
+
+      <div className="max-w-[1720px] mx-auto relative z-10">
         {/* Section Header */}
         <div className="flex flex-wrap items-center justify-between gap-4 pb-8 border-b border-[#0E0E0E]/15 font-mono text-xs tracking-wider text-muted">
           <div className="flex items-center gap-3">
@@ -169,7 +220,7 @@ export default function PosterGallery() {
               >
                 {/* Poster Graphic Frame with Real Artwork Image */}
                 <div className="relative aspect-[3/4] w-full bg-[#0E0E0E] overflow-hidden border border-[#0E0E0E]/15 group-hover:scale-[1.01] transition-transform duration-500 shadow-inner">
-                  <div className="poster-inner-img absolute -inset-y-5 inset-x-0 w-full h-[124%] will-change-transform">
+                  <div className="poster-inner-img absolute -inset-y-8 inset-x-0 w-full h-[142%] will-change-transform">
                     <img
                       src={poster.coverImage}
                       alt={poster.title}
@@ -261,7 +312,7 @@ export default function PosterGallery() {
               >
                 {/* Poster Graphic Frame with Real Artwork Image */}
                 <div className="relative aspect-[3/4] w-full bg-[#0E0E0E] overflow-hidden border border-[#0E0E0E]/15 group-hover:scale-[1.01] transition-transform duration-500 shadow-inner">
-                  <div className="poster-inner-img absolute -inset-y-5 inset-x-0 w-full h-[124%] will-change-transform">
+                  <div className="poster-inner-img absolute -inset-y-8 inset-x-0 w-full h-[142%] will-change-transform">
                     <img
                       src={poster.coverImage}
                       alt={poster.title}

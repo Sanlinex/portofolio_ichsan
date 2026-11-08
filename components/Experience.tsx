@@ -11,8 +11,6 @@ export default function Experience() {
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
       // 1. Divider 1px Lines "Draw" from left to right (scaleX scrub)
       const dividerLines = containerRef.current?.querySelectorAll(".exp-divider-line");
       if (dividerLines) {
@@ -27,19 +25,58 @@ export default function Experience() {
                 trigger: line,
                 start: "top 90%",
                 end: "top 60%",
-                scrub: prefersReducedMotion ? false : 0.6,
+                scrub: 0.6,
               },
             }
           );
         });
       }
 
-      // 2. Rows Stagger Entrance
-      const rowItems = rowsRef.current?.querySelectorAll(".exp-row-item");
-      if (rowItems && !prefersReducedMotion) {
-        const mm = gsap.matchMedia();
+      // 2. Floating Background Parallax Watermark
+      const watermark = containerRef.current?.querySelector(".exp-watermark");
+      if (watermark) {
+        gsap.fromTo(
+          watermark,
+          { yPercent: -30, opacity: 0.02 },
+          {
+            yPercent: 30,
+            opacity: 0.045,
+            ease: "none",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+            },
+          }
+        );
+      }
 
-        mm.add("(min-width: 768px)", () => {
+      // 3. Differential Parallax & Stagger Entrance
+      const rowItems = rowsRef.current?.querySelectorAll(".exp-row-item");
+      const mm = gsap.matchMedia();
+
+      mm.add("(min-width: 768px)", () => {
+        // Sticky sidebar subtle lag
+        const stickySidebar = containerRef.current?.querySelector(".exp-sticky-sidebar");
+        if (stickySidebar) {
+          gsap.fromTo(
+            stickySidebar,
+            { y: -30 },
+            {
+              y: 30,
+              ease: "none",
+              scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.2,
+              },
+            }
+          );
+        }
+
+        if (rowItems) {
           gsap.fromTo(
             rowItems,
             { opacity: 0, y: 40 },
@@ -55,9 +92,32 @@ export default function Experience() {
               },
             }
           );
-        });
 
-        mm.add("(max-width: 767px)", () => {
+          // Subtle row index numeral parallax drift
+          rowItems.forEach((item) => {
+            const indexNum = item.querySelector(".exp-index-num");
+            if (indexNum) {
+              gsap.fromTo(
+                indexNum,
+                { yPercent: 20 },
+                {
+                  yPercent: -20,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: item,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1.2,
+                  },
+                }
+              );
+            }
+          });
+        }
+      });
+
+      mm.add("(max-width: 767px)", () => {
+        if (rowItems) {
           rowItems.forEach((item) => {
             gsap.fromTo(
               item,
@@ -73,9 +133,29 @@ export default function Experience() {
                 },
               }
             );
+
+            const indexNum = item.querySelector(".exp-index-num");
+            if (indexNum) {
+              gsap.fromTo(
+                indexNum,
+                { yPercent: 15 },
+                {
+                  yPercent: -15,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: item,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1,
+                  },
+                }
+              );
+            }
           });
-        });
-      }
+        }
+      });
+
+      return () => mm.revert();
     },
     { scope: containerRef }
   );
@@ -84,12 +164,17 @@ export default function Experience() {
     <section
       id="experience"
       ref={containerRef}
-      className="relative min-h-screen w-full bg-background text-foreground border-b border-[#0E0E0E]/15 px-6 sm:px-10 py-20 sm:py-28"
+      className="relative min-h-screen w-full bg-background text-foreground border-b border-[#0E0E0E]/15 px-6 sm:px-10 py-20 sm:py-28 overflow-hidden"
     >
-      <div className="max-w-[1720px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+      {/* Floating Parallax Editorial Watermark */}
+      <div className="exp-watermark absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-[22vw] sm:text-[18vw] font-sans font-black text-[#0E0E0E]/[0.03] select-none whitespace-nowrap z-0 will-change-transform">
+        EXPERIENCE // 03
+      </div>
+
+      <div className="max-w-[1720px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 relative z-10">
         {/* Sticky Left Column: Editorial Marginalia */}
         <div className="lg:col-span-4">
-          <div className="lg:sticky lg:top-32 space-y-6">
+          <div className="exp-sticky-sidebar lg:sticky lg:top-32 space-y-6 will-change-transform">
             <div className="flex items-center gap-3 font-mono text-xs tracking-wider text-muted">
               <span className="px-2 py-0.5 border border-accent text-accent font-semibold text-[10px]">
                 03 // 08
@@ -138,7 +223,9 @@ export default function Experience() {
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-baseline">
                 {/* Index & Period */}
                 <div className="md:col-span-3 flex flex-col font-mono text-xs text-muted space-y-1">
-                  <span className="text-accent font-semibold">[{exp.index}]</span>
+                  <span className="exp-index-num inline-block will-change-transform text-accent font-semibold">
+                    [{exp.index}]
+                  </span>
                   <span className="text-foreground font-medium">{exp.period}</span>
                   <span className="text-[11px] uppercase tracking-wider text-muted/70">
                     {exp.type}

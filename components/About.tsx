@@ -15,18 +15,9 @@ export default function About() {
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
       // Word-by-word opacity scrub
       const words = paragraphRef.current?.querySelectorAll(".about-word");
-
-      if (prefersReducedMotion || !words || words.length === 0) {
-        // Fallback for reduced motion
-        if (words) {
-          gsap.set(words, { opacity: 1 });
-        }
-        return;
-      }
+      if (!words || words.length === 0) return;
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -34,24 +25,49 @@ export default function About() {
           pin: true,
           pinSpacing: true,
           start: "top top",
-          end: "+=160%",
+          end: "+=170%",
           scrub: 0.8,
         },
       });
 
-      // 1. Scrub words from opacity 0.15 to 1.0
-      tl.to(words, {
-        opacity: 1,
-        stagger: 0.05,
-        ease: "power1.inOut",
-      });
+      // Floating Background Parallax Watermark
+      const watermark = containerRef.current?.querySelector(".about-watermark");
+      if (watermark) {
+        tl.fromTo(
+          watermark,
+          { yPercent: -35, opacity: 0.02 },
+          { yPercent: 35, opacity: 0.05, ease: "none" },
+          0
+        );
+      }
+
+      // 1. Scrub words from opacity 0.15 to 1.0 with subtle spatial rise
+      tl.to(
+        words,
+        {
+          opacity: 1,
+          stagger: 0.05,
+          ease: "power1.inOut",
+        },
+        0
+      );
+
+      // Paragraph gentle vertical floating depth
+      if (paragraphRef.current) {
+        tl.fromTo(
+          paragraphRef.current,
+          { y: 25 },
+          { y: -25, ease: "none" },
+          0
+        );
+      }
 
       // 2. Expand Pill 1 & Pill 2 via clip-path
       if (pill1Ref.current) {
         tl.fromTo(
           pill1Ref.current,
-          { clipPath: "circle(0% at 50% 50%)", scale: 0.5 },
-          { clipPath: "circle(100% at 50% 50%)", scale: 1, duration: 0.4, ease: "power2.out" },
+          { clipPath: "circle(0% at 50% 50%)", scale: 0.5, y: 15 },
+          { clipPath: "circle(100% at 50% 50%)", scale: 1, y: 0, duration: 0.4, ease: "power2.out" },
           0.25
         );
       }
@@ -59,8 +75,8 @@ export default function About() {
       if (pill2Ref.current) {
         tl.fromTo(
           pill2Ref.current,
-          { clipPath: "circle(0% at 50% 50%)", scale: 0.5 },
-          { clipPath: "circle(100% at 50% 50%)", scale: 1, duration: 0.4, ease: "power2.out" },
+          { clipPath: "circle(0% at 50% 50%)", scale: 0.5, y: 15 },
+          { clipPath: "circle(100% at 50% 50%)", scale: 1, y: 0, duration: 0.4, ease: "power2.out" },
           0.6
         );
       }
@@ -104,9 +120,14 @@ export default function About() {
       ref={containerRef}
       className="relative z-20 min-h-screen w-full bg-background text-foreground border-b border-[#0E0E0E]/15 overflow-hidden flex flex-col justify-center"
     >
+      {/* Floating Parallax Editorial Watermark */}
+      <div className="about-watermark absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-[22vw] sm:text-[18vw] font-serif italic font-normal text-[#0E0E0E]/[0.03] select-none whitespace-nowrap z-0 will-change-transform">
+        MANIFESTO // 02
+      </div>
+
       <div
         ref={pinContentRef}
-        className="max-w-[1720px] mx-auto w-full px-6 sm:px-10 py-16 sm:py-24 flex flex-col justify-between min-h-[90vh]"
+        className="max-w-[1720px] mx-auto w-full px-6 sm:px-10 py-16 sm:py-24 flex flex-col justify-between min-h-[90vh] relative z-10"
       >
         {/* Section Header Marginalia */}
         <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#0E0E0E]/10 font-mono text-xs tracking-wider text-muted">
