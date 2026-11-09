@@ -4,9 +4,11 @@ import React, { useRef } from "react";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { PROFILE_DATA } from "@/data/profile";
+import { useProfile } from "@/context/ProfileContext";
 
 export default function SelectedWorks() {
+  const { data } = useProfile();
+  const projects = data.projects;
   const containerRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -233,8 +235,8 @@ export default function SelectedWorks() {
             </div>
           </div>
 
-          {/* Project Cards (01, 02, 03, 04) */}
-          {PROFILE_DATA.projects.map((proj) => (
+          {/* Project Cards */}
+          {projects.map((proj) => (
             <Link
               key={proj.id}
               href={`/work/${proj.slug}`}
@@ -355,7 +357,7 @@ export default function SelectedWorks() {
         </div>
 
         <div className="space-y-12 pt-10">
-          {PROFILE_DATA.projects.map((proj) => (
+          {projects.map((proj) => (
             <Link
               key={proj.id}
               href={`/work/${proj.slug}`}
@@ -411,7 +413,7 @@ export default function SelectedWorks() {
               href="/work"
               className="w-full text-center py-4 px-6 bg-accent hover:bg-accent/90 text-white font-mono text-xs font-bold tracking-wider uppercase transition-colors shadow-md block"
             >
-              Lihat Semua Proyek &amp; Arsip Lengkap ({PROFILE_DATA.projects.length}) ↗
+              Lihat Semua Proyek &amp; Arsip Lengkap ({projects.length}) ↗
             </Link>
           </div>
         </div>

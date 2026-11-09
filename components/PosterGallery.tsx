@@ -4,9 +4,11 @@ import React, { useRef } from "react";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { PROFILE_DATA } from "@/data/profile";
+import { useProfile } from "@/context/ProfileContext";
 
 export default function PosterGallery() {
+  const { data } = useProfile();
+  const posters = data.posters;
   const containerRef = useRef<HTMLElement>(null);
   const col1Ref = useRef<HTMLDivElement>(null);
   const col2Ref = useRef<HTMLDivElement>(null);
@@ -189,7 +191,7 @@ export default function PosterGallery() {
             href="/poster"
             className="text-accent hover:underline font-semibold flex items-center gap-1.5 transition-colors"
           >
-            <span>LIHAT SEMUA POSTER ({PROFILE_DATA.posters.length} SERI)</span>
+            <span>LIHAT SEMUA POSTER ({posters.length} SERI)</span>
             <span>↗</span>
           </Link>
         </div>
@@ -211,7 +213,7 @@ export default function PosterGallery() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 pt-10">
           {/* Column 1: Series 01 (Large Hero Series) */}
           <div ref={col1Ref} className="space-y-12 sm:space-y-16">
-            {PROFILE_DATA.posters.slice(0, 1).map((poster) => (
+            {posters.slice(0, 1).map((poster) => (
               <Link
                 key={poster.id}
                 href={`/poster/${poster.id}`}
@@ -303,7 +305,7 @@ export default function PosterGallery() {
 
           {/* Column 2: Series 02 & Series 03 (Differential Parallax Offset) */}
           <div ref={col2Ref} className="space-y-12 sm:space-y-16 md:pt-12">
-            {PROFILE_DATA.posters.slice(1).map((poster) => (
+            {posters.slice(1).map((poster) => (
               <Link
                 key={poster.id}
                 href={`/poster/${poster.id}`}

@@ -3,14 +3,16 @@
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { PROFILE_DATA } from "@/data/profile";
 import { useLenis } from "@/components/SmoothScroll";
+import { useProfile } from "@/context/ProfileContext";
 
 interface HeroProps {
   isLoaded: boolean;
 }
 
 export default function Hero({ isLoaded }: HeroProps) {
+  const { data } = useProfile();
+  const personal = data.personal;
   const { scrollTo } = useLenis();
   const heroRef = useRef<HTMLElement>(null);
   const line1Ref = useRef<HTMLDivElement>(null);
@@ -338,16 +340,16 @@ export default function Hero({ isLoaded }: HeroProps) {
               01 // 08
             </span>
             <span className="text-foreground font-semibold">
-              {PROFILE_DATA.personal.issueNumber}
+              {personal.issueNumber}
             </span>
           </div>
 
           <div ref={cornerRightRef} className="flex items-center gap-6">
             <span className="hidden sm:inline">SMK RPL ROOTS</span>
             <span className="text-[#0E0E0E]/20 hidden sm:inline">/</span>
-            <span className="text-foreground font-medium">±3 YEARS DEV EXP</span>
+            <span className="text-foreground font-medium">{personal.experienceYears} DEV EXP</span>
             <span className="text-[#0E0E0E]/20">/</span>
-            <span className="text-accent font-semibold">{PROFILE_DATA.personal.location}</span>
+            <span className="text-accent font-semibold">{personal.location}</span>
           </div>
         </div>
       </div>
@@ -387,10 +389,10 @@ export default function Hero({ isLoaded }: HeroProps) {
               [ ROLE // POSITION ]
             </span>
             <h2 className="font-sans font-bold text-2xl sm:text-3xl text-foreground tracking-tight">
-              {PROFILE_DATA.personal.role}
+              {personal.role}
             </h2>
             <p className="mt-2 text-sm sm:text-base text-muted leading-relaxed font-sans">
-              {PROFILE_DATA.personal.bioEditorial}
+              {personal.bioEditorial}
             </p>
           </div>
 

@@ -6,9 +6,13 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useLenis } from "@/components/SmoothScroll";
 import Magnetic from "@/components/Magnetic";
 import TextRoll from "@/components/TextRoll";
-import { PROFILE_DATA } from "@/data/profile";
+import Link from "next/link";
+import { useProfile } from "@/context/ProfileContext";
 
 export default function Footer() {
+  const { data } = useProfile();
+  const contact = data.contact;
+  const personal = data.personal;
   const { scrollTo } = useLenis();
   const footerRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
@@ -178,11 +182,11 @@ export default function Footer() {
         <div className="pt-4">
           <Magnetic strength={0.3}>
             <a
-              href={`mailto:${PROFILE_DATA.contact.email}`}
+              href={`mailto:${contact.email}`}
               data-cursor="Email"
               className="group relative inline-block font-mono text-2xl sm:text-4xl lg:text-6xl font-light text-[#F2EFE9] hover:text-accent transition-colors duration-300 py-2"
             >
-              <span>{PROFILE_DATA.contact.email}</span>
+              <span>{contact.email}</span>
               <span className="absolute bottom-0 left-0 w-full h-[2px] bg-accent origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
             </a>
           </Magnetic>
@@ -198,7 +202,7 @@ export default function Footer() {
           </span>
           <div className="flex flex-wrap gap-6 font-mono text-xs text-[#F2EFE9]">
             <a
-              href={PROFILE_DATA.contact.github.url}
+              href={contact.github.url}
               target="_blank"
               rel="noreferrer"
               className="hover:text-accent transition-colors"
@@ -206,7 +210,7 @@ export default function Footer() {
               <TextRoll text="GITHUB" />
             </a>
             <a
-              href={PROFILE_DATA.contact.linkedin.url}
+              href={contact.linkedin.url}
               target="_blank"
               rel="noreferrer"
               className="hover:text-accent transition-colors"
@@ -214,7 +218,7 @@ export default function Footer() {
               <TextRoll text="LINKEDIN" />
             </a>
             <a
-              href={PROFILE_DATA.contact.instagram.url}
+              href={contact.instagram.url}
               target="_blank"
               rel="noreferrer"
               className="hover:text-accent transition-colors"
@@ -226,6 +230,13 @@ export default function Footer() {
 
         {/* Back to Top Button via Lenis */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+          <Link
+            href="/admin"
+            className="text-[11px] font-mono tracking-wider text-muted hover:text-accent border border-white/15 px-3 py-1.5 transition-colors uppercase"
+          >
+            STUDIO CMS // DASHBOARD ↗
+          </Link>
+
           <Magnetic strength={0.25}>
             <button
               onClick={() => scrollTo(0)}
@@ -236,7 +247,7 @@ export default function Footer() {
           </Magnetic>
 
           <div className="font-mono text-xs text-[#9E9B94] space-y-0.5">
-            <div>© 2026 MUH. RAFLI ICHSAN.</div>
+            <div>© 2026 {personal.name.toUpperCase()}.</div>
             <div className="text-[10px] text-[#9E9B94]/70">
               MINIMALIST EDITORIAL & TYPOGRAPHIC ARCHIVE
             </div>

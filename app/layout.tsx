@@ -4,6 +4,8 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
 import { PROFILE_DATA } from "@/data/profile";
+import { getProfileData } from "@/lib/db";
+import { ProfileDataProvider } from "@/context/ProfileContext";
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -69,24 +71,28 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const profileData = await getProfileData();
+
   return (
     <html
       lang="id"
       className={`${instrumentSerif.variable} ${interTight.variable} ${jetbrainsMono.variable}`}
     >
       <body className="bg-background text-foreground font-sans antialiased min-h-screen relative selection:bg-accent selection:text-[#F2EFE9]">
-        <SmoothScroll>
-          {/* Subtle tactile paper grain overlay */}
-          <div className="grain-overlay" aria-hidden="true" />
-          {/* Global custom cursor */}
-          <CustomCursor />
-          <main className="relative z-10 w-full">{children}</main>
-        </SmoothScroll>
+        <ProfileDataProvider initialData={profileData}>
+          <SmoothScroll>
+            {/* Subtle tactile paper grain overlay */}
+            <div className="grain-overlay" aria-hidden="true" />
+            {/* Global custom cursor */}
+            <CustomCursor />
+            <main className="relative z-10 w-full">{children}</main>
+          </SmoothScroll>
+        </ProfileDataProvider>
       </body>
     </html>
   );

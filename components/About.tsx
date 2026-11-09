@@ -3,9 +3,11 @@
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { PROFILE_DATA } from "@/data/profile";
+import { useProfile } from "@/context/ProfileContext";
 
 export default function About() {
+  const { data } = useProfile();
+  const personal = data.personal;
   const containerRef = useRef<HTMLElement>(null);
   const pinContentRef = useRef<HTMLDivElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
@@ -85,7 +87,7 @@ export default function About() {
       const statElements = statsRef.current?.querySelectorAll(".stat-counter");
       if (statElements) {
         statElements.forEach((el, idx) => {
-          const targetVal = PROFILE_DATA.personal.stats[idx]?.value || 0;
+          const targetVal = personal.stats[idx]?.value || 0;
           const counterObj = { val: 0 };
 
           tl.to(
@@ -196,8 +198,8 @@ export default function About() {
 
           {/* Secondary Editorial Narrative Bio */}
           <div className="mt-10 sm:mt-14 grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-[#0E0E0E]/10 font-sans text-sm sm:text-base text-muted leading-relaxed">
-            <p>{PROFILE_DATA.personal.bioParagraphs[0]}</p>
-            <p>{PROFILE_DATA.personal.bioParagraphs[1]}</p>
+            <p>{personal.bioParagraphs[0]}</p>
+            <p>{personal.bioParagraphs[1]}</p>
           </div>
         </div>
 
@@ -206,7 +208,7 @@ export default function About() {
           ref={statsRef}
           className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 pt-8 border-t border-[#0E0E0E]/15"
         >
-          {PROFILE_DATA.personal.stats.map((stat, idx) => (
+          {personal.stats.map((stat, idx) => (
             <div key={idx} className="flex flex-col border-l-2 border-accent pl-4 sm:pl-6">
               <div className="flex items-baseline gap-1 font-mono text-4xl sm:text-5xl lg:text-6xl font-light text-foreground tracking-tight">
                 <span className="stat-counter">0</span>

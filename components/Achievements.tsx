@@ -4,9 +4,12 @@ import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { PROFILE_DATA, AchievementItem } from "@/data/profile";
+import { AchievementItem } from "@/data/profile";
+import { useProfile } from "@/context/ProfileContext";
 
 export default function Achievements() {
+  const { data } = useProfile();
+  const achievements = data.achievements;
   const containerRef = useRef<HTMLElement>(null);
   const rowsContainerRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -176,7 +179,7 @@ export default function Achievements() {
             href="/certificate"
             className="text-accent hover:underline font-semibold flex items-center gap-1.5 transition-colors"
           >
-            <span>LIHAT SEMUA SERTIFIKAT ({PROFILE_DATA.achievements.length})</span>
+            <span>LIHAT SEMUA SERTIFIKAT ({achievements.length})</span>
             <span>↗</span>
           </Link>
         </div>
@@ -195,7 +198,7 @@ export default function Achievements() {
 
         {/* Editorial Table */}
         <div ref={rowsContainerRef} className="border-t border-[#0E0E0E]/15 flex flex-col">
-          {PROFILE_DATA.achievements.map((ach) => (
+          {achievements.map((ach) => (
             <Link
               key={ach.id}
               href={`/certificate/${ach.id}`}
@@ -259,7 +262,7 @@ export default function Achievements() {
             href="/certificate"
             className="py-3 px-6 border border-accent bg-accent/10 hover:bg-accent hover:text-white text-accent font-mono text-xs font-bold tracking-wider uppercase transition-all shadow-sm flex items-center gap-2"
           >
-            <span>Buka Arsip Lengkap Semua Sertifikat ({PROFILE_DATA.achievements.length})</span>
+            <span>Buka Arsip Lengkap Semua Sertifikat ({achievements.length})</span>
             <span>↗</span>
           </Link>
         </div>

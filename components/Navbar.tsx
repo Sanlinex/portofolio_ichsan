@@ -6,10 +6,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLenis } from "@/components/SmoothScroll";
 import Magnetic from "@/components/Magnetic";
 import TextRoll from "@/components/TextRoll";
-import { PROFILE_DATA } from "@/data/profile";
+import { useProfile } from "@/context/ProfileContext";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 export default function Navbar() {
+  const { data } = useProfile();
+  const personal = data.personal;
+  const projects = data.projects;
+  const achievements = data.achievements;
+  const posters = data.posters;
   const { scrollTo } = useLenis();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
@@ -177,10 +182,10 @@ export default function Navbar() {
               aria-label="Scroll to top"
             >
               <span className="font-sans font-bold text-sm tracking-tight text-foreground block group-hover:text-accent transition-colors">
-                {PROFILE_DATA.personal.name}
+                {personal.name}
               </span>
               <span className="font-mono text-[10px] tracking-widest text-muted uppercase block">
-                {PROFILE_DATA.personal.role}
+                {personal.role}
               </span>
             </button>
 
@@ -335,21 +340,28 @@ export default function Navbar() {
                           onClick={() => setIsMenuOpen(false)}
                           className="px-2.5 py-1 bg-white/5 hover:bg-accent hover:text-white border border-white/10 transition-colors"
                         >
-                          ALL PROJECTS (04) ↗
+                          ALL PROJECTS ({projects.length}) ↗
                         </Link>
                         <Link
                           href="/certificate"
                           onClick={() => setIsMenuOpen(false)}
                           className="px-2.5 py-1 bg-white/5 hover:bg-accent hover:text-white border border-white/10 transition-colors"
                         >
-                          ALL CERTIFICATES (03) ↗
+                          ALL CERTIFICATES ({achievements.length}) ↗
                         </Link>
                         <Link
                           href="/poster"
                           onClick={() => setIsMenuOpen(false)}
                           className="px-2.5 py-1 bg-white/5 hover:bg-accent hover:text-white border border-white/10 transition-colors"
                         >
-                          ALL POSTERS (10) ↗
+                          ALL POSTERS ({posters.length}) ↗
+                        </Link>
+                        <Link
+                          href="/admin"
+                          onClick={() => setIsMenuOpen(false)}
+                          className="px-2.5 py-1 bg-accent/20 text-accent hover:bg-accent hover:text-white border border-accent/40 font-semibold transition-colors"
+                        >
+                          STUDIO CMS // ADMIN ⚡
                         </Link>
                       </div>
                     </li>
@@ -360,18 +372,18 @@ export default function Navbar() {
               {/* Overlay Bottom Bar Colophon */}
               <div className="border-t border-white/10 pt-4 sm:pt-6 flex flex-wrap justify-between items-center gap-4 sm:gap-6 font-mono text-xs tracking-wider text-[#9E9B94] flex-shrink-0">
                 <div>
-                  <span className="block text-[#F2EFE9] font-medium">MUH. RAFLI ICHSAN</span>
-                  <span className="text-[10px] text-muted">{PROFILE_DATA.personal.location} // FULLSTACK ARCHITECT</span>
+                  <span className="block text-[#F2EFE9] font-medium">{personal.name.toUpperCase()}</span>
+                  <span className="text-[10px] text-muted">{personal.location} // {personal.role.toUpperCase()}</span>
                 </div>
                 <div className="flex gap-4 sm:gap-6 text-xs">
                   <a
-                    href={`mailto:${PROFILE_DATA.contact.email}`}
+                    href={`mailto:${data.contact.email}`}
                     className="hover:text-accent transition-colors"
                   >
-                    {PROFILE_DATA.contact.email}
+                    {data.contact.email}
                   </a>
                   <a
-                    href={PROFILE_DATA.contact.github.url}
+                    href={data.contact.github.url}
                     target="_blank"
                     rel="noreferrer"
                     className="hover:text-accent transition-colors hidden sm:inline"
@@ -379,7 +391,7 @@ export default function Navbar() {
                     GitHub
                   </a>
                   <a
-                    href={PROFILE_DATA.contact.linkedin.url}
+                    href={data.contact.linkedin.url}
                     target="_blank"
                     rel="noreferrer"
                     className="hover:text-accent transition-colors hidden sm:inline"

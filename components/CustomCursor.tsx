@@ -1,9 +1,13 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { gsap } from "@/lib/gsap";
 
 export default function CustomCursor() {
+  const pathname = usePathname();
+  const isAdmin = pathname?.startsWith("/admin");
+
   const outerCursorRef = useRef<HTMLDivElement>(null);
   const innerDotRef = useRef<HTMLDivElement>(null);
   const [cursorText, setCursorText] = useState("");
@@ -12,6 +16,11 @@ export default function CustomCursor() {
   const [isTouchOnly, setIsTouchOnly] = useState(false);
 
   useEffect(() => {
+    if (isAdmin) {
+      document.body.classList.remove("custom-cursor-active");
+      return;
+    }
+
     // Only disable custom cursor on purely touch devices with no mouse pointer
     const isCoarseTouchOnly =
       window.matchMedia("(hover: none) and (pointer: coarse)").matches;
@@ -99,9 +108,9 @@ export default function CustomCursor() {
       document.removeEventListener("mouseenter", handleMouseEnterWindow);
       document.removeEventListener("mouseleave", handleMouseLeaveWindow);
     };
-  }, []);
+  }, [isAdmin]);
 
-  if (isTouchOnly) return null;
+  if (isTouchOnly || isAdmin) return null;
 
   return (
     <>

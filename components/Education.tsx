@@ -3,9 +3,11 @@
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { PROFILE_DATA } from "@/data/profile";
+import { useProfile } from "@/context/ProfileContext";
 
 export default function Education() {
+  const { data } = useProfile();
+  const education = data.education;
   const containerRef = useRef<HTMLElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -104,21 +106,21 @@ export default function Education() {
               [ KEJURUAN TEKNIK // RPL ]
             </span>
             <span className="text-foreground font-semibold">
-              {PROFILE_DATA.education.period}
+              {education.period}
             </span>
           </div>
 
           <div className="edu-reveal space-y-2">
             <h3 className="font-serif italic text-3xl sm:text-5xl text-foreground">
-              {PROFILE_DATA.education.degree}
+              {education.degree}
             </h3>
             <p className="font-mono text-xs uppercase tracking-wider text-muted font-medium">
-              {PROFILE_DATA.education.institution}
+              {education.institution}
             </p>
           </div>
 
           <p className="edu-reveal font-sans text-sm sm:text-base text-muted leading-relaxed">
-            {PROFILE_DATA.education.description}
+            {education.description}
           </p>
 
           <div className="edu-reveal pt-4 border-t border-[#0E0E0E]/10">
@@ -126,7 +128,7 @@ export default function Education() {
               FOKUS KOMPETENSI REKAYASA:
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-sans text-xs sm:text-sm text-foreground/80">
-              {PROFILE_DATA.education.courses.map((course, idx) => (
+              {education.courses.map((course, idx) => (
                 <div key={idx} className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                   <span>{course}</span>

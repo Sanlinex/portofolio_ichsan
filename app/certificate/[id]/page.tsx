@@ -1,8 +1,11 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { PROFILE_DATA } from "@/data/profile";
+import { getProfileData } from "@/lib/db";
 import type { Metadata } from "next";
 import CertificateDetailClient from "@/components/CertificateDetailClient";
+
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
 interface CertificatePageProps {
   params: {
@@ -10,14 +13,9 @@ interface CertificatePageProps {
   };
 }
 
-export function generateStaticParams() {
-  return PROFILE_DATA.achievements.map((ach) => ({
-    id: ach.id,
-  }));
-}
-
-export function generateMetadata({ params }: CertificatePageProps): Metadata {
-  const ach = PROFILE_DATA.achievements.find((a) => a.id === params.id);
+export async function generateMetadata({ params }: CertificatePageProps): Promise<Metadata> {
+  const data = await getProfileData();
+  const ach = data.achievements.find((a) => a.id === params.id);
   if (!ach) {
     return {
       title: "Certificate Not Found",
@@ -25,24 +23,25 @@ export function generateMetadata({ params }: CertificatePageProps): Metadata {
   }
 
   return {
-    title: `${ach.title} (${ach.rank} Place) — Official Record | ${PROFILE_DATA.personal.name}`,
+    title: `${ach.title} (${ach.rank} Place) — Official Record | ${data.personal.name}`,
     description: ach.description,
   };
 }
 
-export default function CertificateDetailPage({ params }: CertificatePageProps) {
-  const achIndex = PROFILE_DATA.achievements.findIndex((a) => a.id === params.id);
+export default async function CertificateDetailPage({ params }: CertificatePageProps) {
+  const data = await getProfileData();
+  const achIndex = data.achievements.findIndex((a) => a.id === params.id);
   if (achIndex === -1) {
     notFound();
   }
 
-  const ach = PROFILE_DATA.achievements[achIndex];
+  const ach = data.achievements[achIndex];
   const prevAch =
-    PROFILE_DATA.achievements[
-      (achIndex - 1 + PROFILE_DATA.achievements.length) % PROFILE_DATA.achievements.length
+    data.achievements[
+      (achIndex - 1 + data.achievements.length) % data.achievements.length
     ];
   const nextAch =
-    PROFILE_DATA.achievements[(achIndex + 1) % PROFILE_DATA.achievements.length];
+    data.achievements[(achIndex + 1) % data.achievements.length];
 
   return (
     <CertificateDetailClient

@@ -4,9 +4,11 @@ import React, { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useLenis } from "@/components/SmoothScroll";
-import { PROFILE_DATA } from "@/data/profile";
+import { useProfile } from "@/context/ProfileContext";
 
 export default function Skills() {
+  const { data } = useProfile();
+  const skills = data.skills;
   const containerRef = useRef<HTMLElement>(null);
   const marquee1Ref = useRef<HTMLDivElement>(null);
   const marquee2Ref = useRef<HTMLDivElement>(null);
@@ -140,7 +142,7 @@ export default function Skills() {
           className="flex whitespace-nowrap will-change-transform font-serif italic text-4xl sm:text-6xl lg:text-7xl tracking-tight text-foreground"
         >
           <div className="flex items-center gap-8 animate-[marquee_38s_linear_infinite]">
-            {PROFILE_DATA.skills.marqueeRow1.concat(PROFILE_DATA.skills.marqueeRow1).map((item, idx) => (
+            {skills.marqueeRow1.concat(skills.marqueeRow1).map((item, idx) => (
               <span key={`m1-${idx}`} className="flex items-center gap-8">
                 <span>{item}</span>
                 <span className="text-accent font-sans not-italic text-2xl font-bold">•</span>
@@ -155,7 +157,7 @@ export default function Skills() {
           className="flex whitespace-nowrap will-change-transform font-sans font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight text-foreground/80 uppercase"
         >
           <div className="flex items-center gap-8 animate-[marquee-reverse_38s_linear_infinite]">
-            {PROFILE_DATA.skills.marqueeRow2.concat(PROFILE_DATA.skills.marqueeRow2).map((item, idx) => (
+            {skills.marqueeRow2.concat(skills.marqueeRow2).map((item, idx) => (
               <span key={`m2-${idx}`} className="flex items-center gap-8">
                 <span className={idx % 2 === 0 ? "text-accent" : ""}>{item}</span>
                 <span className="text-muted/40 font-mono text-xl">/</span>
@@ -185,7 +187,7 @@ export default function Skills() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 pt-8">
-            {PROFILE_DATA.skills.core.map((skill, idx) => (
+            {skills.core.map((skill, idx) => (
               <div
                 key={idx}
                 className="skill-card-item border border-[#0E0E0E]/15 bg-background p-6 sm:p-8 flex flex-col justify-between hover:border-accent transition-colors duration-300 group"
@@ -225,7 +227,7 @@ export default function Skills() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 pt-8">
-            {PROFILE_DATA.skills.also.map((skill, idx) => (
+            {skills.also.map((skill, idx) => (
               <div
                 key={idx}
                 className="skill-card-item border border-[#0E0E0E]/15 bg-background p-6 sm:p-8 flex flex-col justify-between hover:border-accent transition-colors duration-300 group"
@@ -256,7 +258,7 @@ export default function Skills() {
             SUPPORTING TECHNOLOGIES & WORKFLOWS:
           </span>
           <div className="flex flex-wrap gap-2 sm:gap-3">
-            {PROFILE_DATA.skills.secondary.map((tech, idx) => (
+            {skills.secondary.map((tech, idx) => (
               <span
                 key={idx}
                 className="px-3 py-1.5 font-mono text-xs bg-surface border border-[#0E0E0E]/15 text-foreground hover:bg-[#0E0E0E] hover:text-[#F2EFE9] transition-colors cursor-default"

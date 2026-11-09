@@ -1,14 +1,20 @@
 import React from "react";
-import { PROFILE_DATA } from "@/data/profile";
+import { getProfileData } from "@/lib/db";
 import type { Metadata } from "next";
 import AllCertificatesClient from "@/components/AllCertificatesClient";
 
-export const metadata: Metadata = {
-  title: `All Certificates & Honors Archive | ${PROFILE_DATA.personal.name}`,
-  description:
-    "Arsip lengkap sertifikat kejuaraan rekayasa web Lomba Kompetensi Siswa (LKS), Olimpiade Digital UMKM, dan rekognisi resmi yang diperoleh Muh. Rafli Ichsan.",
-};
+export const dynamic = "force-dynamic";
 
-export default function AllCertificatesArchivePage() {
-  return <AllCertificatesClient achievements={PROFILE_DATA.achievements} />;
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getProfileData();
+  return {
+    title: `All Certificates & Honors Archive | ${data.personal.name}`,
+    description:
+      "Arsip lengkap sertifikat kejuaraan rekayasa web Lomba Kompetensi Siswa (LKS), Olimpiade Digital UMKM, dan rekognisi resmi yang diperoleh Muh. Rafli Ichsan.",
+  };
+}
+
+export default async function AllCertificatesArchivePage() {
+  const data = await getProfileData();
+  return <AllCertificatesClient achievements={data.achievements} />;
 }

@@ -3,9 +3,11 @@
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { PROFILE_DATA } from "@/data/profile";
+import { useProfile } from "@/context/ProfileContext";
 
 export default function Experience() {
+  const { data } = useProfile();
+  const experiences = data.experiences;
   const containerRef = useRef<HTMLElement>(null);
   const rowsRef = useRef<HTMLDivElement>(null);
 
@@ -212,7 +214,7 @@ export default function Experience() {
 
         {/* Right Column: Giant Typographic Rows */}
         <div ref={rowsRef} className="lg:col-span-8 flex flex-col">
-          {PROFILE_DATA.experiences.map((exp, idx) => (
+          {experiences.map((exp, idx) => (
             <div
               key={exp.id}
               className="exp-row-item group relative py-10 sm:py-14 transition-transform duration-300 hover:translate-x-3 cursor-pointer"
@@ -275,7 +277,7 @@ export default function Experience() {
               </div>
 
               {/* Bottom 1px Animated Divider Line on last element */}
-              {idx === PROFILE_DATA.experiences.length - 1 && (
+              {idx === experiences.length - 1 && (
                 <div className="exp-divider-line absolute bottom-0 left-0 right-0 h-[1px] bg-[#0E0E0E]/20 origin-left" />
               )}
             </div>

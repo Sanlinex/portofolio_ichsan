@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
@@ -17,10 +18,17 @@ const LenisContext = createContext<LenisContextType>({
 export const useLenis = () => useContext(LenisContext);
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isAdmin = pathname?.startsWith("/admin");
+
   const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    if (isAdmin) {
+      return;
+    }
+
     const lenis = new Lenis({
       duration: 1.0,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -56,7 +64,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, []);
+  }, [isAdmin]);
 
   const scrollTo = (target: string | number | HTMLElement, options?: Record<string, unknown>) => {
     if (lenisRef.current) {
