@@ -14,6 +14,7 @@ import {
   Eye,
 } from "lucide-react";
 import type { ProjectItem } from "@/data/profile";
+import ImageFieldWithEditor from "@/components/admin/ImageFieldWithEditor";
 
 const EMPTY_PROJECT: ProjectItem = {
   id: "",
@@ -479,26 +480,14 @@ export default function AdminProjectsPage() {
                 />
               </div>
 
-              {/* Image URL & Preview */}
-              <div className="space-y-2">
-                <label className="font-mono text-xs uppercase text-[#9E9B94]">
-                  URL Gambar Thumbnail / Screenshot Proyek:
-                </label>
-                <div className="flex gap-4 items-center">
-                  <input
-                    type="text"
-                    value={formData.image}
-                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    placeholder="https://... atau /projects/image.png"
-                    className="flex-1 bg-[#0A0A0A] border border-white/20 px-3.5 py-2.5 text-sm text-[#F2EFE9] font-mono focus:outline-none focus:border-accent"
-                  />
-                  {formData.image && (
-                    <div className="w-16 h-10 border border-white/20 overflow-hidden bg-black flex-shrink-0">
-                      <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
-                    </div>
-                  )}
-                </div>
-              </div>
+              {/* Image Uploader & Photo Editor */}
+              <ImageFieldWithEditor
+                label="Foto Thumbnail / Screenshot Proyek: *"
+                value={formData.image}
+                onChange={(newUrl) => setFormData({ ...formData, image: newUrl })}
+                aspectPreset="16:10"
+                helperText="Mendukung unggah langsung dari komputer, potong (crop) rasio 16:10, rotasi, zoom, dan filter pencahayaan."
+              />
 
               {/* Tech Stack (Comma-separated) */}
               <div className="space-y-1.5">

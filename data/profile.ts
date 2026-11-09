@@ -93,6 +93,7 @@ export interface ProfileData {
     utcOffset: string;
     availability: string;
     availableForWork: boolean;
+    avatar?: string;
     issueNumber: string;
     bioEditorial: string;
     bioParagraphs: string[];

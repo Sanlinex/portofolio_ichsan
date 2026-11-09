@@ -15,6 +15,7 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 import type { PosterItem, PosterSubItem } from "@/data/profile";
+import ImageFieldWithEditor from "@/components/admin/ImageFieldWithEditor";
 
 const EMPTY_POSTER: PosterItem = {
   id: "",
@@ -445,31 +446,16 @@ export default function AdminPostersPage() {
                 </div>
               </div>
 
-              {/* Cover Image URL */}
-              <div className="space-y-2">
-                <label className="font-mono text-xs uppercase text-[#9E9B94]">
-                  URL Gambar Sampul Utama (Cover Image): *
-                </label>
-                <div className="flex gap-4 items-center">
-                  <input
-                    type="text"
-                    value={formData.coverImage}
-                    onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
-                    required
-                    placeholder="https://... atau /posters/series-1.jpg"
-                    className="flex-1 bg-[#0A0A0A] border border-white/20 px-3.5 py-2.5 text-sm text-[#F2EFE9] font-mono focus:outline-none focus:border-accent"
-                  />
-                  {formData.coverImage && (
-                    <div className="w-12 h-16 border border-white/20 overflow-hidden bg-black flex-shrink-0">
-                      <img
-                        src={formData.coverImage}
-                        alt="Preview"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  )}
-                </div>
-              </div>
+              {/* Cover Image Uploader & Photo Editor */}
+              <ImageFieldWithEditor
+                label="Gambar Sampul Utama (Cover Image): *"
+                value={formData.coverImage}
+                onChange={(newUrl) =>
+                  setFormData({ ...formData, coverImage: newUrl, image: newUrl })
+                }
+                aspectPreset="3:4"
+                helperText="Rasio 3:4 portrait sangat ideal untuk poster tipografi Swiss International Style."
+              />
 
               {/* Palette Hexes & Tools */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -568,12 +554,11 @@ export default function AdminPostersPage() {
                         />
                       </div>
 
-                      <input
-                        type="text"
+                      <ImageFieldWithEditor
+                        label="Foto / Artwork Varian Poster:"
                         value={sub.image}
-                        onChange={(e) => handleSubItemChange(idx, "image", e.target.value)}
-                        placeholder="URL Gambar Varian"
-                        className="w-full bg-[#141414] border border-white/15 px-3 py-1.5 text-xs text-[#F2EFE9] font-mono"
+                        onChange={(newUrl) => handleSubItemChange(idx, "image", newUrl)}
+                        aspectPreset="3:4"
                       />
                     </div>
                   ))}

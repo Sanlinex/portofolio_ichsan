@@ -12,6 +12,7 @@ import {
   Trash2,
 } from "lucide-react";
 import type { ProfileData } from "@/data/profile";
+import ImageFieldWithEditor from "@/components/admin/ImageFieldWithEditor";
 
 export default function AdminProfilePage() {
   const [data, setData] = useState<ProfileData | null>(null);
@@ -305,6 +306,20 @@ export default function AdminProfilePage() {
               />
             </div>
           </div>
+
+          {/* Profile Photo Uploader & Editor */}
+          <ImageFieldWithEditor
+            label="Foto Profil / Avatar Personal (Opsional):"
+            value={data.personal.avatar || ""}
+            onChange={(newUrl) =>
+              setData({
+                ...data,
+                personal: { ...data.personal, avatar: newUrl },
+              })
+            }
+            aspectPreset="1:1"
+            helperText="Rasio 1:1 persegi sangat ideal untuk avatar personal atau foto profil studio."
+          />
 
           <div className="space-y-1.5">
             <label className="font-mono text-xs uppercase text-[#9E9B94]">

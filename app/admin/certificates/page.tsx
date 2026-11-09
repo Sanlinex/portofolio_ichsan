@@ -15,6 +15,7 @@ import {
   Award,
 } from "lucide-react";
 import type { AchievementItem } from "@/data/profile";
+import ImageFieldWithEditor from "@/components/admin/ImageFieldWithEditor";
 
 const EMPTY_CERTIFICATE: AchievementItem = {
   id: "",
@@ -393,20 +394,16 @@ export default function AdminCertificatesPage() {
                 />
               </div>
 
-              <div className="space-y-1.5">
-                <label className="font-mono text-xs uppercase text-[#9E9B94]">
-                  URL Gambar Sertifikat (Opsional):
-                </label>
-                <input
-                  type="text"
-                  value={formData.certificatePlaceholder}
-                  onChange={(e) =>
-                    setFormData({ ...formData, certificatePlaceholder: e.target.value })
-                  }
-                  placeholder="https://... atau /certificates/lks-2024.jpg"
-                  className="w-full bg-[#0A0A0A] border border-white/20 px-3.5 py-2.5 text-sm text-[#F2EFE9] font-mono focus:outline-none focus:border-accent"
-                />
-              </div>
+              {/* Image Uploader & Photo Editor */}
+              <ImageFieldWithEditor
+                label="Foto / Sertifikat Resmi: *"
+                value={formData.certificatePlaceholder}
+                onChange={(newUrl) =>
+                  setFormData({ ...formData, certificatePlaceholder: newUrl })
+                }
+                aspectPreset="4:3"
+                helperText="Mendukung unggah foto sertifikat fisik, crop rasio 4:3 standar sertifikat, rotasi, dan penyesuaian kontras."
+              />
 
               <div className="border-t border-white/10 pt-6 flex justify-end gap-3 flex-shrink-0">
                 <button
